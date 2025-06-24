@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/MJB_Quito', function () {
+    return  view ('Inmobiliaria');  
+     
+});
+
+Route::get('/MJB', function() {
+    return view('vista');
 });
