@@ -35,15 +35,49 @@
                 </button>
             </div>
             <div class="user-profile">
-                <div class="user-avatar">R</div>
-                <div class="dropdown">
-                    <button class="dropdown-btn">
-                        Real State
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                </div>
-            </div>
+    <div class="user-avatar">R</div>
+    <div class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown()">
+            Real State
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#"><i class="fas fa-user"></i> Perfil</a>
+            <a href="{{ route('login') }}"><i class="fas fa-sign-out-alt"></i> Salir</a>
         </div>
+    </div>
+</div>
+<script>
+    //Mostrar Perfil y salir
+    document.addEventListener('DOMContentLoaded', function() {
+    function toggleDropdown() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu) {
+            dropdownMenu.classList.toggle("show");
+        } else {
+            console.error("Elemento con ID 'dropdownMenu' no encontrado.");
+        }
+    }
+    window.toggleDropdown = toggleDropdown;
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', toggleDropdown);
+    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown-btn') && !event.target.closest('.dropdown-menu')) {
+            const dropdowns = document.getElementsByClassName("dropdown-menu");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+});
+</script>
+      <!-- Fase prueba -->
+           
     </header>
 
     <div class="main-container">
