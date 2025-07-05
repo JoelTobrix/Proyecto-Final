@@ -21,3 +21,8 @@ Route::get('/inicio', function() {
 })->name('login');
 
 
+Route::get('/page', function(){
+    return view('options.pagina');
+})->name('pagina');
+
+

@@ -295,5 +295,7 @@ body {
 }
 
 .background-section {
-    transition: all 0.3s ease;
+     background-image: url('/img/login_inmobiliaria.png');
+    background-size: cover;
+    background-position: center;
 }

@@ -3,251 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inmobiliaria MJB</title>
-    <link rel="icon" href="logo.png" type="image/png">
-    <link rel="stylesheet" href="{{asset('css/inmobiliaria.css')}}">         
+    <title> Inmobiliaria MJB Quito</title>
+    <link rel="stylesheet" href="{{asset('css/pagina.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="header-left">
-            <div class="logo">
-                <i class="fas fa-home"></i>
-                <span>Inmobiliaria MJB Quito</span>
-            </div>
+            <i class="fas fa-home"></i>
+            <span class="logo">Inmobiliaria MJB Quito</span>
             <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
         <div class="header-right">
             <button class="header-btn">
-                <i class="fas fa-globe"></i>
+                <i class="fas fa-store"></i>
                 Ver tienda
             </button>
             <button class="header-btn">
                 <i class="fas fa-bell"></i>
             </button>
-            <div class="dropdown">
-                <button class="dropdown-btn">
-                    Diseño
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+            <div class="user-menu">
+                <span>Diseño</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="user-profile">
-                <div class="user-avatar">R</div>
-                <div class="dropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdown()">
-                        Real State
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="#"><i class="fas fa-user"></i> Perfil</a>
-                        <a href="{{route('login')}}"><i class="fas fa-sign-out-alt"></i> Salir</a>
-                    </div>
-                </div>
+            <div class="user-avatar">R</div>
+            <div class="user-menu">
+                <span>Real State</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
     </header>
 
-    <div class="main-container">
+    <div class="dashboard-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <ul>
-                    <li class="nav-item active" id="escritorio-nav">
-                        <a href="#" class="nav-link" onclick="showSection('escritorio', this)">
-                            <i class="fas fa-home"></i>
-                            <span>Escritorio</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="paginas-nav">
-                        <a href="#" class="nav-link" onclick="showSection('paginas', this)">
-                            <i class="fas fa-file-alt"></i>
-                            <span>Páginas</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="blog-nav">
-                        <a href="#" class="nav-link" onclick="showSection('blog', this)">
-                            <i class="fas fa-blog"></i>
-                            <span>Blog</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="realestate-nav">
-                        <a href="#" class="nav-link" onclick="showSection('realestate', this)">
-                            <i class="fas fa-building"></i>
-                            <span>Real Estate</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-comments"></i>
-                            <span>Consults</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <span>Accounts</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-box"></i>
-                            <span>Packages</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Contacto</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-credit-card"></i>
-                            <span>Pagos</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Locations</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-images"></i>
-                            <span>Medios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-paint-brush"></i>
-                            <span>Apariencia</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tools"></i>
-                            <span>Avanzado</span>
-                            <i class="fas fa-chevron-right expand-icon"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+        <nav class="sidebar">
+            <div class="sidebar-item active" onclick="showSection('escritorio')">
+                <i class="fas fa-home"></i>
+                <span>Escritorio</span>
+            </div>
+            
+            <div class="sidebar-item" onclick="showSection('paginas')">
+                <i class="fas fa-file-alt"></i>
+                <span>Páginas</span>
+            </div>
+
+            <div class="sidebar-item">
+                <i class="fas fa-blog"></i>
+                <span>Blog</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-building"></i>
+                <span>Real Estate</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-comments"></i>
+                <span>Consults</span>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-users"></i>
+                <span>Accounts</span>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-box"></i>
+                <span>Packages</span>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contacto</span>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Pagos</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Locations</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="sidebar-item">
+                <i class="fas fa-photo-video"></i>
+                <span>Medios</span>
+            </div>
+        </nav>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- SECCIÓN ESCRITORIO (Por defecto) -->
+            <!-- Sección Escritorio -->
             <div id="escritorio-section" class="content-section active">
-                <!-- Breadcrumb -->
                 <div class="breadcrumb">
                     <i class="fas fa-home"></i>
                     <span>Escritorio</span>
                 </div>
-                                
+
                 <!-- Stats Cards -->
                 <div class="stats-grid">
                     <div class="stat-card purple">
                         <div class="stat-number">8</div>
                         <div class="stat-label">Active properties</div>
                     </div>
-                    <div class="stat-card cyan">
+                    
+                    <div class="stat-card green">
                         <div class="stat-number">0</div>
                         <div class="stat-label">Pending properties</div>
                     </div>
+                    
                     <div class="stat-card red">
                         <div class="stat-number">0</div>
                         <div class="stat-label">Expired properties</div>
                     </div>
+                    
                     <div class="stat-card blue">
                         <div class="stat-number">12</div>
                         <div class="stat-label">Agents</div>
                     </div>
                 </div>
-                                
+
                 <!-- Recent Publications Table -->
-                <div class="table-section">
+                <div class="table-container">
                     <div class="table-header">
                         <h3>
                             <i class="fas fa-edit"></i>
                             Publicaciones recientes
                         </h3>
                         <div class="table-actions">
-                            <button class="action-btn">
-                                <i class="fas fa-sync-alt"></i>
+                            <button class="table-btn">
+                                <i class="fas fa-sync"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="table-btn">
                                 <i class="fas fa-download"></i>
                             </button>
-                            <button class="action-btn">
+                            <button class="table-btn">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>NOMBRE</th>
-                                    <th>FECHA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a href="#" class="table-link">BCG sets great store by real estate negotiations</a></td>
-                                    <td>2023-11-19</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><a href="#" class="table-link">Private Home Sales Drop 27% In October</a></td>
-                                    <td>2023-11-19</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><a href="#" class="table-link">Singapore Overtakes Hong Kong In Terms Of Property Investment Prospects</a></td>
-                                    <td>2023-11-19</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><a href="#" class="table-link">S. Korea's Big Investors Flocking to Overseas Real Estate</a></td>
-                                    <td>2023-11-19</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><a href="#" class="table-link">The Top 2020 Handbag Trends to Know</a></td>
-                                    <td>2023-11-19</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td><a href="#" class="table-link">Top Search Engine Optimization Strategies!</a></td>
-                                    <td>2023-11-19</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    
+                    <table class="publications-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NOMBRE</th>
+                                <th>FECHA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="no-data">No hay publicaciones recientes</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- SECCIÓN PÁGINAS -->
+            <!-- Sección Páginas -->
             <div id="paginas-section" class="content-section">
-                <!-- Breadcrumb -->
                 <div class="breadcrumb">
                     <i class="fas fa-home"></i>
                     <span>Escritorio</span>
@@ -558,91 +481,11 @@
                     </button>
                 </div>
             </div>
-
-            <!-- SECCIÓN BLOG (Ejemplo adicional) -->
-            <div id="blog-section" class="content-section">
-                <div class="breadcrumb">
-                    <i class="fas fa-home"></i>
-                    <span>Escritorio</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Blog</span>
-                </div>
-                <div class="section-header">
-                    <h1>
-                        <i class="fas fa-blog"></i>
-                        Gestión de Blog
-                    </h1>
-                    <p>Administra todas las entradas de tu blog inmobiliario</p>
-                </div>
-                <!-- Aquí irían los artículos del blog -->
-                <div class="coming-soon">
-                    <i class="fas fa-blog" style="font-size: 64px; color: #bdc3c7; margin-bottom: 20px;"></i>
-                    <h3>Sección en desarrollo</h3>
-                    <p>La gestión de blog estará disponible próximamente</p>
-                </div>
-            </div>
-
-            <!-- SECCIÓN REAL ESTATE (Ejemplo adicional) -->
-            <div id="realestate-section" class="content-section">
-                <div class="breadcrumb">
-                    <i class="fas fa-home"></i>
-                    <span>Escritorio</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Real Estate</span>
-                </div>
-                <div class="section-header">
-                    <h1>
-                        <i class="fas fa-building"></i>
-                        Gestión de Propiedades
-                    </h1>
-                    <p>Administra todas las propiedades de tu inmobiliaria</p>
-                </div>
-                <!-- Aquí irían las propiedades -->
-                <div class="coming-soon">
-                    <i class="fas fa-building" style="font-size: 64px; color: #bdc3c7; margin-bottom: 20px;"></i>
-                    <h3>Sección en desarrollo</h3>
-                    <p>La gestión de propiedades estará disponible próximamente</p>
-                </div>
-            </div>
         </main>
     </div>
 
     <script>
-        // Función para mostrar/ocultar dropdown del perfil
-        document.addEventListener('DOMContentLoaded', function() {
-            function toggleDropdown() {
-                const dropdownMenu = document.getElementById("dropdownMenu");
-                if (dropdownMenu) {
-                    dropdownMenu.classList.toggle("show");
-                } else {
-                    console.error("Elemento con ID 'dropdownMenu' no encontrado.");
-                }
-            }
-            window.toggleDropdown = toggleDropdown;
-
-            const dropdownBtn = document.querySelector('.dropdown-btn');
-            if (dropdownBtn) {
-                dropdownBtn.addEventListener('click', toggleDropdown);
-            }
-
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropdown-btn') && !event.target.closest('.dropdown-menu')) {
-                    const dropdowns = document.getElementsByClassName("dropdown-menu");
-                    for (let i = 0; i < dropdowns.length; i++) {
-                        const openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            }
-        });
-
-        // Función para cambiar entre secciones
-        function showSection(sectionName, clickedElement) {
-            // Prevenir el comportamiento por defecto del enlace
-            event.preventDefault();
-            
+        function showSection(sectionName) {
             // Ocultar todas las secciones
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(section => {
@@ -656,16 +499,13 @@
             }
 
             // Actualizar el estado activo del sidebar
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
                 item.classList.remove('active');
             });
 
             // Activar el elemento del sidebar correspondiente
-            const parentNavItem = clickedElement.closest('.nav-item');
-            if (parentNavItem) {
-                parentNavItem.classList.add('active');
-            }
+            event.target.closest('.sidebar-item').classList.add('active');
         }
     </script>
 </body>
