@@ -81,10 +81,11 @@
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="consultas-nav">
+                        <a href="#" class="nav-link" onclick="showSection('consultas',this)">
                             <i class="fas fa-comments"></i>
-                            <span>Consults</span>
+                            <span>Consultas</span>
+                            <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -604,6 +605,83 @@
                     <p>La gestión de propiedades estará disponible próximamente</p>
                 </div>
             </div>
+                <!--SECCION CONSULTAS-->
+                 <div id="consultas-section" class="content-section">
+                    <div class="breadcrumb">
+                    <i class="fas fa-home"></i>
+                    <span>Escritorio</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Real Estate</span>
+                    </div>
+                <div class="section-header">
+                    <h1>
+                        <i class="fas fa-building"></i>
+                        Seccion de consultas
+                    </h1>
+                </div>
+                 <!-- Formulario de Consulta -->
+    <div class="formulario-consulta">
+        <h3><i class="fas fa-question-circle"></i> Realiza tu consulta</h3>
+        <form id="form-consulta">
+            <div class="form-group">
+                <label for="nombre-consulta">Nombre completo:</label>
+                <input type="text" id="nombre-consulta" name="nombre-consulta" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email-consulta">Correo electrónico:</label>
+                <input type="email" id="email-consulta" name="email-consulta" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mensaje-consulta">Mensaje:</label>
+                <textarea id="mensaje-consulta" name="mensaje-consulta" rows="4" class="form-control" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Enviar Consulta
+            </button>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- Formulario de Agendamiento -->
+    <div class="formulario-cita">
+        <h3><i class="fas fa-calendar-check"></i> Agendar Cita a Propiedad</h3>
+        <form id="form-cita">
+            <div class="form-group">
+                <label for="nombre-cita">Nombre completo:</label>
+                <input type="text" id="nombre-cita" name="nombre-cita" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono-cita">Teléfono:</label>
+                <input type="tel" id="telefono-cita" name="telefono-cita" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="propiedad-cita">Propiedad a visitar:</label>
+                <input type="text" id="propiedad-cita" name="propiedad-cita" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha-cita">Fecha preferida:</label>
+                <input type="date" id="fecha-cita" name="fecha-cita" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hora-cita">Hora preferida:</label>
+                <input type="time" id="hora-cita" name="hora-cita" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-calendar-plus"></i> Agendar Cita
+            </button>
+           </form>
+           </div>
+           </div>
+
         </main>
     </div>
 
