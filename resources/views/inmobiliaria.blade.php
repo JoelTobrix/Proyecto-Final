@@ -38,7 +38,7 @@
                 <div class="user-avatar">R</div>
                 <div class="dropdown">
                     <button class="dropdown-btn" onclick="toggleDropdown()">
-                        Real State
+                        Usuario
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="dropdown-menu" id="dropdownMenu">
@@ -77,7 +77,7 @@
                     <li class="nav-item" id="realestate-nav">
                         <a href="#" class="nav-link" onclick="showSection('realestate', this)">
                             <i class="fas fa-building"></i>
-                            <span>Real Estate</span>
+                            <span>Gestion de propiedades</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
@@ -88,22 +88,24 @@
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <span>Accounts</span>
+                    <li class="nav-item" id="catalogo-nav">
+                        <a href="#" class="nav-link" onclick="showSection('catalogo',this)">
+                            <i class="fas fa-book"></i>
+                            <span>Catalogo</span>
+                            <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="reservas-nav">
+                        <a href="#" class="nav-link" onclick="showSection('reservas', this)">
                             <i class="fas fa-box"></i>
-                            <span>Packages</span>
+                            <span>Reservas</span>
+                            <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Contacto</span>
+                    <li class="nav-item" id="destacadas-nav">
+                        <a href="#" class="nav-link" onclick="showSection('destacadas', this)">
+                            <i class="fas fa-building"></i>
+                            <span>Propiedades destacadas</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -598,7 +600,7 @@
                     </h1>
                     <p>Administra todas las propiedades de tu inmobiliaria</p>
                 </div>
-                <!-- Aquí irían las propiedades -->
+                <!-- Lista propiedades -->
                 <div class="coming-soon">
                     <i class="fas fa-building" style="font-size: 64px; color: #bdc3c7; margin-bottom: 20px;"></i>
                     <h3>Sección en desarrollo</h3>
@@ -615,7 +617,7 @@
                     </div>
                 <div class="section-header">
                     <h1>
-                        <i class="fas fa-building"></i>
+                        <i class="fas fa-comments"></i>
                         Seccion de consultas
                     </h1>
                 </div>
@@ -681,6 +683,52 @@
            </form>
            </div>
            </div>
+
+         <!--SECCION CATALOGO-->
+            <div id="catalogo-section" class="content-section">
+               <div class= "breadcrumb">
+                <i class= "fas fa-home"></i>
+                   <span>Escritorio</span>
+                   <i class="fas fa-chevron-right"></i>
+                   <span>Real Estate</span>  
+                    </div>
+                <div class="section-header">
+                    <h1>
+                        <i class="fas fa-book"></i>
+                        Seccion de Catalogo
+                    </h1>
+                </div>
+                </div>
+         <!--SECCION RESERVAS-->    
+         <div id="reservas-section" class="content-section">
+            <div class= "breadcrumb">
+                <i class="fas fa-home"></i>
+                <span>Escritorio</span>
+                <i class="fas fa-chevron-right"></i>
+                   <span>Real Estate</span> 
+                </div>
+               <div class="section-header">
+                <h1>
+                    <i class="fas fa-box"></i>
+                    Seccion de Reservas
+                </h1>
+               </div>  
+               </div> 
+         <!--SECCION DE PROPIEDADES DESTACADAS--> 
+          <div id="destacadas-section" class="content-section">
+            <div class= "breadcrumb">
+                <i class="fas fa-home"></i>
+                <span>Escritorio</span>
+                <i class="fas fa-chevron-right"></i>
+                   <span>Real Estate</span> 
+                </div>
+               <div class="section-header">
+                <h1>
+                    <i class="fas fa-building"></i>
+                    Seccion de Propiedades destacadas
+                </h1>
+               </div>  
+               </div> 
 
         </main>
     </div>
