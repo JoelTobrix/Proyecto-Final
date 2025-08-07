@@ -299,3 +299,8 @@ body {
     background-size: cover;
     background-position: center;
 }
+.button-container {
+    display: flex;
+    gap: 10px; /* espacio entre botones */
+    margin-bottom: 1rem;
+  }

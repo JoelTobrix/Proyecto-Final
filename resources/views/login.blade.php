@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inmobiliaria MJB Quito - Iniciar Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="{{asset('logo.png')}}" type="image/png">
     <link href="{{asset('css/login.css')}}" rel="stylesheet"> 
 </head>
@@ -55,9 +56,13 @@
                     <label for="remember" class="checkbox-label">¿Recuérdame?</label>
                 </div>
 
-                <button type="submit" class="login-button" id="loginBtn">
-                    Acceso
-                </button>
+                <div class="d-flex gap-2 mb-3">
+           <button type="submit" class="login-button" id="loginBtn1">
+        Acceso
+         </button>
+          <a href="{{ route('registro') }}" class="login-button" id="loginBtn2">Registrarse</a>
+              </div>
+
             </form>
 
             <div class="forgot-password">
