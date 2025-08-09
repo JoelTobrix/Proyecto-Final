@@ -23,10 +23,6 @@ Route::get('/inicio', function() {
 })->name('login');
 
 
-//Ruta de registro
-Route::get('/register', function() {
-    return view('register.registro');
-})->name('registro');
 
 
 // Registro de usuario funcion controlador

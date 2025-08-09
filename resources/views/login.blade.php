@@ -60,7 +60,7 @@
            <button type="submit" class="login-button" id="loginBtn1">
         Acceso
          </button>
-          <a href="{{ route('registro') }}" class="login-button" id="loginBtn2">Registrarse</a>
+          <a href="{{ route('usuario.formulario') }}" class="login-button" id="loginBtn2">Registrarse</a>
               </div>
 
             </form>
