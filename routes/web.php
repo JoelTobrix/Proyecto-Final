@@ -28,6 +28,18 @@ Route::get('/register', function() {
     return view('register.registro');
 })->name('registro');
 
+
+// Registro de usuario funcion controlador
+use App\Http\Controllers\UsuarioController;
+
+Route::get('/register', [UsuarioController::class, 'mostrarFormularioRegistro'])->name('usuario.formulario');
+Route::post('/register', [UsuarioController::class, 'registrar'])->name('usuario.registrar');
+
+
+
+
+
+
 //Ruta de prueba
 Route::get('/page', function(){
     return view('options.pagina');
