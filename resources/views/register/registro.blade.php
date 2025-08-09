@@ -96,7 +96,7 @@
             </form>
 
             <div class="login-link">
-                <a href="#" onclick="irALogin()">¿Ya tienes cuenta? Iniciar sesión</a>
+                <a href="{{route('login')}}" onclick="irALogin()">¿Ya tienes cuenta? Iniciar sesión</a>
             </div>
         </div>
     </div>
