@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsuarioController;
 
 /*
 Rutas de navegacion
@@ -22,11 +23,21 @@ Route::get('/inicio', function() {
     return view('login');
 })->name('login');
 
+//2.Route inicio de sesion
+Route::post('/login', [UsuarioController::class, 'login'])->name('usuario.iniciar');
+
+Route::get('/inmobiliaria', function() {
+    if (!session()->has('usuario')) {
+        return redirect()->route('login')->withErrors('Debes iniciar sesión para acceder.');
+    }
+    $usuario = session('usuario');
+    return view('inmobiliaria', compact('usuario'));
+})->name('inmobiliaria');
 
 
 
 // Registro de usuario funcion controlador
-use App\Http\Controllers\UsuarioController;
+//use App\Http\Controllers\UsuarioController;
 
 Route::get('/register', [UsuarioController::class, 'mostrarFormularioRegistro'])->name('usuario.formulario');
 Route::post('/register', [UsuarioController::class, 'registrar'])->name('usuario.registrar');

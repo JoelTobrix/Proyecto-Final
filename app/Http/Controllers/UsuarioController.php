@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Models\Rol;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsuarioController extends Controller
 {
@@ -38,4 +40,26 @@ class UsuarioController extends Controller
         $roles = Rol::all();
         return view('register.registro', compact('roles'));
     }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'correo' => 'required|email',
+            'password' => 'required'
+        ]);
+          $usuario = Usuario::where('correo', $request->correo)->first();
+
+    if ($usuario && Hash::check($request->password, $usuario->contrasena)) {
+        // Guardar usuario en la sesión
+        session(['usuario' => $usuario]);
+
+        // Redirigir a ruta inmobiliaria
+        return redirect()->route('inmobiliaria')->with('success', 'Inicio de sesión exitoso.');
+    }
+
+    // Si falla el ingreso
+    return back()->withErrors([
+        'correo' => 'Credenciales inválidas'
+    ])->withInput();
+}
 }
