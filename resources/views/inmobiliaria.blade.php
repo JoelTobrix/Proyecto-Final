@@ -106,19 +106,20 @@
                         <a href="#" class="nav-link" onclick="showSection('destacadas', this)">
                             <i class="fas fa-building"></i>
                             <span>Propiedades destacadas</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-credit-card"></i>
-                            <span>Pagos</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Locations</span>
+                    <li class="nav-item" id="usuarios-nav">
+                        <a href="#" class="nav-link" onclick="showSection('usuarios'), this">
+                            <i class="fas fa-user"></i>
+                            <span>Usuarios</span>
+                            <i class="fas fa-chevron-right expand-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="reportes-nav">
+                        <a href="#" class="nav-link" onclick="showSection('reportes'), this">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Reportes</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li>
@@ -248,7 +249,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN PÁGINAS -->
+            <!-- SECCIÓN PÁGINAS -->  
             <div id="paginas-section" class="content-section">
                 <!-- Breadcrumb -->
                 <div class="breadcrumb">
@@ -585,7 +586,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN REAL ESTATE (Ejemplo adicional) -->
+            <!-- SECCIÓN GESTION DE PROPIEDADES -->    <!--Rol Agente vendedor y propietario-->
             <div id="realestate-section" class="content-section">
                 <div class="breadcrumb">
                     <i class="fas fa-home"></i>
@@ -607,7 +608,7 @@
                     <p>La gestión de propiedades estará disponible próximamente</p>
                 </div>
             </div>
-                <!--SECCION CONSULTAS-->
+                <!--SECCION CONSULTAS-->   <!--Roles Agente vendedor y propietario-->
                  <div id="consultas-section" class="content-section">
                     <div class="breadcrumb">
                     <i class="fas fa-home"></i>
@@ -684,7 +685,8 @@
            </div>
            </div>
 
-         <!--SECCION CATALOGO-->
+         <!--SECCION CATALOGO-->  <!--Roles Todos tienen acceso-->
+         @if(in_array(auth()->user()->rol, ['cliente', 'agente', 'propietario']))
             <div id="catalogo-section" class="content-section">
                <div class= "breadcrumb">
                 <i class= "fas fa-home"></i>
@@ -698,8 +700,8 @@
                         Seccion de Catalogo
                     </h1>
                 </div>
-                </div>
-         <!--SECCION RESERVAS-->    
+                </div> @endif
+         <!--SECCION RESERVAS-->  <!--Roles: TODOS-->    
          <div id="reservas-section" class="content-section">
             <div class= "breadcrumb">
                 <i class="fas fa-home"></i>
@@ -714,7 +716,7 @@
                 </h1>
                </div>  
                </div> 
-         <!--SECCION DE PROPIEDADES DESTACADAS--> 
+         <!--SECCION DE PROPIEDADES DESTACADAS-->  <!--Rol:Todos--> 
           <div id="destacadas-section" class="content-section">
             <div class= "breadcrumb">
                 <i class="fas fa-home"></i>
@@ -729,7 +731,36 @@
                 </h1>
                </div>  
                </div> 
-
+          <!--SECCION DE USUARIOS-->    <!--Rol: todos-->  
+          <div id="usuarios-section" class="content-section">
+            <div class="breadcrumb">
+                <i class="fas fa-home"></i>
+                <span>Escritorio</span>
+                <i class="fas fa-chevron-right"></i>
+                   <span>Real Estate</span> 
+                </div>
+                <div class="section-header">
+                <h1>     
+                    <i class="fas fa-user"></i>
+                    Seccion de clientes y agentes propietarios   
+                 </h1>
+               </div>  
+               </div>
+          <!--SECCION DE REPORTES-->   <!--Rol: Agente vendedor y propietario-->
+          <div id="reportes-section" class="content-section">
+            <div class="breadcrumb">
+                <i class="fas fa-home"></i>
+                 <span>Escritorio</span>
+                <i class="fas fa-chevron-right"></i>
+                   <span>Real Estate</span> 
+                </div>
+                <div class="section-header">
+                <h1>     
+                     <i class="fas fa-file-alt"></i>
+                     Seccion de reportes
+                </h1>  
+                </div>  
+               </div>   
         </main>
     </div>
 
