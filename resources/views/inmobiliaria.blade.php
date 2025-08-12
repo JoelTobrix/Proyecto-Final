@@ -686,7 +686,7 @@
            </div>
 
          <!--SECCION CATALOGO-->  <!--Roles Todos tienen acceso-->
-         @if(in_array(auth()->user()->rol, ['cliente', 'agente', 'propietario']))
+        
             <div id="catalogo-section" class="content-section">
                <div class= "breadcrumb">
                 <i class= "fas fa-home"></i>
@@ -700,7 +700,7 @@
                         Seccion de Catalogo
                     </h1>
                 </div>
-                </div> @endif
+                </div> 
          <!--SECCION RESERVAS-->  <!--Roles: TODOS-->    
          <div id="reservas-section" class="content-section">
             <div class= "breadcrumb">
