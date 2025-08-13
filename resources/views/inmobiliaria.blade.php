@@ -61,68 +61,77 @@
                             <span>Escritorio</span>
                         </a>
                     </li>
+                    @if(in_array($usuario->rol_id, [2,3]))
                     <li class="nav-item" id="paginas-nav">
                         <a href="#" class="nav-link" onclick="showSection('paginas', this)">
                             <i class="fas fa-file-alt"></i>
                             <span>Páginas</span>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id, [1,2,3]))
                     <li class="nav-item" id="blog-nav">
                         <a href="#" class="nav-link" onclick="showSection('blog', this)">
                             <i class="fas fa-blog"></i>
                             <span>Blog</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id, [2,3]))
                     <li class="nav-item" id="realestate-nav">
                         <a href="#" class="nav-link" onclick="showSection('realestate', this)">
                             <i class="fas fa-building"></i>
                             <span>Gestion de propiedades</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id, [2,3]))
                     <li class="nav-item" id="consultas-nav">
                         <a href="#" class="nav-link" onclick="showSection('consultas',this)">
                             <i class="fas fa-comments"></i>
                             <span>Consultas</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                   @if(in_array($usuario->rol_id, [1,2,3]))
                     <li class="nav-item" id="catalogo-nav">
                         <a href="#" class="nav-link" onclick="showSection('catalogo',this)">
                             <i class="fas fa-book"></i>
                             <span>Catalogo</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id, [1,2,3]))
                     <li class="nav-item" id="reservas-nav">
                         <a href="#" class="nav-link" onclick="showSection('reservas', this)">
                             <i class="fas fa-box"></i>
                             <span>Reservas</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id,[2,3] ))
                     <li class="nav-item" id="destacadas-nav">
                         <a href="#" class="nav-link" onclick="showSection('destacadas', this)">
                             <i class="fas fa-building"></i>
                             <span>Propiedades destacadas</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id,[1,2,3] ))
                     <li class="nav-item" id="usuarios-nav">
                         <a href="#" class="nav-link" onclick="showSection('usuarios'), this">
                             <i class="fas fa-user"></i>
                             <span>Usuarios</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
+                    @if(in_array($usuario->rol_id,[2,3] ))
                     <li class="nav-item" id="reportes-nav">
                         <a href="#" class="nav-link" onclick="showSection('reportes'), this">
                             <i class="fas fa-file-alt"></i>
                             <span>Reportes</span>
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
-                    </li>
+                    </li> @endif
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-images"></i>
