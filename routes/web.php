@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
-
+use App\Http\Controllers\PropiedadController;
+use App\Models\Propiedad;
 /*
 Rutas de navegacion
 |
@@ -31,18 +32,18 @@ Route::get('/inmobiliaria', function() {
         return redirect()->route('login')->withErrors('Debes iniciar sesión para acceder.');
     }
     $usuario = session('usuario');
-    return view('inmobiliaria', compact('usuario'));
+    $propiedades = Propiedad::paginate(9);
+    return view('inmobiliaria', compact('usuario' ,'propiedades'));
 })->name('inmobiliaria');
 
 
 
 // Registro de usuario funcion controlador
-//use App\Http\Controllers\UsuarioController;
-
 Route::get('/register', [UsuarioController::class, 'mostrarFormularioRegistro'])->name('usuario.formulario');
 Route::post('/register', [UsuarioController::class, 'registrar'])->name('usuario.registrar');
 
-
+//Muestra propiedades
+Route::get('/catalogo', [PropiedadController::class, 'index'])->name('catalogo');
 
 
 

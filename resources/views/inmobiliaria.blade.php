@@ -694,22 +694,187 @@
            </div>
            </div>
 
-         <!--SECCION CATALOGO-->  <!--Roles Todos tienen acceso-->
-        
-            <div id="catalogo-section" class="content-section">
-               <div class= "breadcrumb">
-                <i class= "fas fa-home"></i>
-                   <span>Escritorio</span>
-                   <i class="fas fa-chevron-right"></i>
-                   <span>Real Estate</span>  
-                    </div>
-                <div class="section-header">
-                    <h1>
-                        <i class="fas fa-book"></i>
-                        Seccion de Catalogo
-                    </h1>
+    <!-- SECCION CATALOGO --> <!-- Todos los roles -->
+<div id="catalogo-section" class="content-section">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb mb-3">
+        <i class="fas fa-home"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Real Estate</span>  
+    </div>
+
+    <!-- Título sección -->
+    <div class="section-header mb-4">
+        <h1><i class="fas fa-book"></i> Sección de Catálogo</h1>
+    </div>
+
+    <!-- Listado de propiedades -->
+    <div class="row mt-2">
+        @forelse($propiedades as $propiedad)
+        <div class="col-card">
+            <div class="card">
+                <div class="card-image">
+                    @if($propiedad->imagen)
+                        <img src="{{ asset('storage/' . $propiedad->imagen) }}" alt="{{ $propiedad->titulo }}">
+                    @else
+                        <img src="{{ asset('images/no-image.jpg') }}" alt="Sin imagen">
+                    @endif
+                    <div class="card-badge">Oferta</div>
                 </div>
-                </div> 
+
+                <div class="card-body">
+                    <h5>{{ $propiedad->titulo }}</h5>
+                    <p><i class="fas fa-map-marker-alt text-danger"></i> {{ $propiedad->ubicacion }}</p>
+                    <p class="price">$ {{ number_format($propiedad->precio, 2) }}</p>
+                    <p class="description">{{ Str::limit($propiedad->descripcion, 100) }}</p>
+                    <a href="#" class="btn-view">Ver más</a>
+                </div>
+            </div>
+        </div>
+        @empty
+            <p class="text-center">No hay propiedades disponibles.</p>
+        @endforelse
+    </div>
+
+    <!-- Paginación -->
+    <div class="mt-3 text-center">
+        {{ $propiedades->links() }}
+    </div>
+</div>
+
+<!-- Estilos profesionales -->
+<style>
+/* Grid de tarjetas */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col-card {
+    flex: 1 1 calc(33% - 20px);
+    box-sizing: border-box;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Imagen */
+.card-image {
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Badge */
+.card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff5a5f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Body */
+.card-body {
+    padding: 15px;
+}
+
+.card-body h5 {
+    margin: 0 0 8px;
+    color: #222;
+}
+
+.card-body p {
+    margin: 4px 0;
+    color: #555;
+}
+
+.card-body .price {
+    color: #28a745;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.card-body .description {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Botón */
+.btn-view {
+    display: inline-block;
+    padding: 6px 18px;
+    margin-top: 8px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-view:hover {
+    background-color: #0056b3;
+}
+</style>
+
+
+
+    <!-- Listado de propiedades -->
+    <div class="row mt-4">
+        @forelse($propiedades as $propiedad)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if($propiedad->imagen)
+                        <img src="{{ asset('storage/' . $propiedad->imagen) }}" class="card-img-top" alt="{{ $propiedad->titulo }}" style="height: 200px; object-fit: cover;">
+                    @else
+                        <img src="{{ asset('images/no-image.jpg') }}" class="card-img-top" alt="Sin imagen" style="height: 200px; object-fit: cover;">
+                    @endif
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $propiedad->titulo }}</h5>
+                        <p class="card-text"><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
+                        <p class="card-text text-success"><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
+                        <p class="card-text">{{ Str::limit($propiedad->descripcion, 80) }}</p>
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-primary btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <p class="text-center">No hay propiedades disponibles.</p>
+        @endforelse
+    </div>
+
+    <!-- Paginación -->
+    <div class="mt-3">
+        {{ $propiedades->links() }}
+    </div>
+</div>
+
          <!--SECCION RESERVAS-->  <!--Roles: TODOS-->    
          <div id="reservas-section" class="content-section">
             <div class= "breadcrumb">

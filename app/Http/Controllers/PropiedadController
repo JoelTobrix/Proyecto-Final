@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Propiedad;
+use Illuminate\Http\Request;
+
+class PropiedadController extends Controller
+{
+    public function index()
+    {
+        $propiedades = Propiedad::paginate(9); // 9 por página
+        return view('catalogo', compact('propiedades'));
+    }
+}
+
+?>
