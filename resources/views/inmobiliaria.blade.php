@@ -7,6 +7,7 @@
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="{{asset('css/inmobiliaria.css')}}">         
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
 </head>
 <body>
     <!-- Header -->
@@ -678,38 +679,105 @@
         <h1><i class="fas fa-book"></i> Sección de Catálogo</h1>
     </div>
 
-    <!-- Listado de propiedades -->
-    <div class="row mt-4">
-        @forelse($propiedades as $propiedad)
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    @if($propiedad->imagen)
-                        <img src="{{ asset('storage/' . $propiedad->imagen) }}" class="card-img-top" alt="{{ $propiedad->titulo }}" style="height: 200px; object-fit: cover;">
-                    @else
-                        <img src="{{ asset('images/no-image.jpg') }}" class="card-img-top" alt="Sin imagen" style="height: 200px; object-fit: cover;">
-                    @endif
+  <!-- Listado de propiedades -->
+<div class="row mt-4">
+    @forelse($propiedades as $propiedad)
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                @if($propiedad->imagen)
+                    <img src="{{ asset('storage/' . $propiedad->imagen) }}" class="card-img-top" alt="{{ $propiedad->titulo }}" style="height: 200px; object-fit: cover;">
+                @else
+                    <img src="{{ asset('images/no-image.jpg') }}" class="card-img-top" alt="Sin imagen" style="height: 200px; object-fit: cover;">
+                @endif
 
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $propiedad->titulo }}</h5>
-                        <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
-                        <p class="text-success"><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
-                        <p>{{ Str::limit($propiedad->descripcion, 80) }}</p>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $propiedad->titulo }}</h5>
+                    <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
+                    <p class="text-success"><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
+                    <p>{{ Str::limit($propiedad->descripcion, 80) }}</p>
+                </div>
+
+                <div class="card-footer text-center">
+                    <!-- Botón que abre el modal -->
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPropiedad{{ $propiedad->id }}">
+                        Ver más
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de propiedad -->
+        <div class="modal fade" id="modalPropiedad{{ $propiedad->id }}" tabindex="-1" aria-labelledby="modalPropiedadLabel{{ $propiedad->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalPropiedadLabel{{ $propiedad->id }}">{{ $propiedad->titulo }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
+                    <div class="modal-body">
+                        @if($propiedad->imagen)
+                            <img src="{{ asset('storage/' . $propiedad->imagen) }}" class="img-fluid rounded mb-3" alt="{{ $propiedad->titulo }}">
+                        @else
+                            <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded mb-3" alt="Sin imagen">
+                        @endif
 
-                    <div class="card-footer text-center">
-                        <a href="#" class="btn btn-primary btn-sm">Ver más</a>
+                        <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
+                        <p><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
+                        <p><strong>Descripción:</strong> {{ $propiedad->descripcion }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Botón para abrir modal de agendar cita -->
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCita{{ $propiedad->id }}">
+                            Agendar cita
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
-        @empty
-            <p class="text-center">No hay propiedades disponibles.</p>
-        @endforelse
-    </div>
+        </div>
 
-    <div class="mt-3">
-        {{ $propiedades->links() }}
-    </div>
+        <!-- Modal de Agendar Cita -->
+        <div class="modal fade" id="modalCita{{ $propiedad->id }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $propiedad->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCitaLabel{{ $propiedad->id }}">Agendar cita para {{ $propiedad->titulo }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="nombreCita{{ $propiedad->id }}" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombreCita{{ $propiedad->id }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailCita{{ $propiedad->id }}" class="form-label">Correo</label>
+                                <input type="email" class="form-control" id="emailCita{{ $propiedad->id }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechaCita{{ $propiedad->id }}" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="fechaCita{{ $propiedad->id }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="horaCita{{ $propiedad->id }}" class="form-label">Hora</label>
+                                <input type="time" class="form-control" id="horaCita{{ $propiedad->id }}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Enviar cita</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    @empty
+        <p class="text-center">No hay propiedades disponibles.</p>
+    @endforelse
 </div>
+</div>
+
 
 <!-- Estilos profesionales -->
 <style>
@@ -1168,5 +1236,8 @@
             }
         }
     </script>
+    <!-- Bootstrap JS (para que los modales funcionen) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
