@@ -585,11 +585,7 @@
                     <p>Administra todas las propiedades de tu inmobiliaria</p>
                 </div>
                 <!-- Lista propiedades -->
-                <div class="coming-soon">
-                    <i class="fas fa-building" style="font-size: 64px; color: #bdc3c7; margin-bottom: 20px;"></i>
-                    <h3>Sección en desarrollo</h3>
-                    <p>La gestión de propiedades estará disponible próximamente</p>
-                </div>
+                
             </div>
                 <!--SECCION CONSULTAS-->   <!--Roles Agente vendedor y propietario-->
                  <div id="consultas-section" class="content-section">
@@ -668,7 +664,7 @@
            </div>
            </div>
 
-    <!-- SECCION CATALOGO --> <!-- Todos los roles -->
+   <!-- SECCION CATALOGO -->
 <div id="catalogo-section" class="content-section">
     <!-- Breadcrumb -->
     <div class="breadcrumb mb-3">
@@ -678,142 +674,9 @@
         <span>Real Estate</span>  
     </div>
 
-    <!-- Título sección -->
     <div class="section-header mb-4">
         <h1><i class="fas fa-book"></i> Sección de Catálogo</h1>
     </div>
-
-    <!-- Listado de propiedades -->
-    <div class="row mt-2">
-        @forelse($propiedades as $propiedad)
-        <div class="col-card">
-            <div class="card">
-                <div class="card-image">
-                    @if($propiedad->imagen)
-                        <img src="{{ asset('storage/' . $propiedad->imagen) }}" alt="{{ $propiedad->titulo }}">
-                    @else
-                        <img src="{{ asset('images/no-image.jpg') }}" alt="Sin imagen">
-                    @endif
-                    <div class="card-badge">Oferta</div>
-                </div>
-
-                <div class="card-body">
-                    <h5>{{ $propiedad->titulo }}</h5>
-                    <p><i class="fas fa-map-marker-alt text-danger"></i> {{ $propiedad->ubicacion }}</p>
-                    <p class="price">$ {{ number_format($propiedad->precio, 2) }}</p>
-                    <p class="description">{{ Str::limit($propiedad->descripcion, 100) }}</p>
-                    <a href="#" class="btn-view">Ver más</a>
-                </div>
-            </div>
-        </div>
-        @empty
-            <p class="text-center">No hay propiedades disponibles.</p>
-        @endforelse
-    </div>
-
-    <!-- Paginación -->
-    <div class="mt-3 text-center">
-        {{ $propiedades->links() }}
-    </div>
-</div>
-
-<!-- Estilos profesionales -->
-<style>
-/* Grid de tarjetas */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.col-card {
-    flex: 1 1 calc(33% - 20px);
-    box-sizing: border-box;
-}
-
-/* Tarjetas */
-.card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    background-color: #fff;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
-
-/* Imagen */
-.card-image {
-    position: relative;
-}
-
-.card-image img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-}
-
-/* Badge */
-.card-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #ff5a5f;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-/* Body */
-.card-body {
-    padding: 15px;
-}
-
-.card-body h5 {
-    margin: 0 0 8px;
-    color: #222;
-}
-
-.card-body p {
-    margin: 4px 0;
-    color: #555;
-}
-
-.card-body .price {
-    color: #28a745;
-    font-weight: bold;
-    margin: 5px 0;
-}
-
-.card-body .description {
-    font-size: 0.9rem;
-    color: #777;
-}
-
-/* Botón */
-.btn-view {
-    display: inline-block;
-    padding: 6px 18px;
-    margin-top: 8px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.btn-view:hover {
-    background-color: #0056b3;
-}
-</style>
-
-
 
     <!-- Listado de propiedades -->
     <div class="row mt-4">
@@ -828,9 +691,9 @@
 
                     <div class="card-body">
                         <h5 class="card-title">{{ $propiedad->titulo }}</h5>
-                        <p class="card-text"><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
-                        <p class="card-text text-success"><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
-                        <p class="card-text">{{ Str::limit($propiedad->descripcion, 80) }}</p>
+                        <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
+                        <p class="text-success"><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
+                        <p>{{ Str::limit($propiedad->descripcion, 80) }}</p>
                     </div>
 
                     <div class="card-footer text-center">
@@ -843,11 +706,319 @@
         @endforelse
     </div>
 
-    <!-- Paginación -->
     <div class="mt-3">
         {{ $propiedades->links() }}
     </div>
 </div>
+
+<!-- Estilos profesionales -->
+<style>
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Grid de tarjetas mejorado */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Tarjetas mejoradas */
+        .property-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Imagen mejorada */
+        .card-image {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .property-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        /* Badge mejorado */
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .badge-oportunidad {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+        }
+
+        .badge-nuevo {
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,210,255,0.4);
+        }
+
+        .badge-disponible {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            box-shadow: 0 4px 15px rgba(17,153,142,0.4);
+        }
+
+        /* Body mejorado */
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-location {
+            display: flex;
+            align-items: center;
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-location::before {
+            content: "📍";
+            margin-right: 0.5rem;
+        }
+
+        .card-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-description {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .card-area, .card-type {
+            font-size: 0.85rem;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Botón mejorado */
+        .btn-view {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #718096;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #2d3748;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .modal-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .properties-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+</style>
+
+
 
          <!--SECCION RESERVAS-->  <!--Roles: TODOS-->    
          <div id="reservas-section" class="content-section">
@@ -890,10 +1061,34 @@
                 <div class="section-header">
                 <h1>     
                     <i class="fas fa-user"></i>
-                    Seccion de clientes y agentes propietarios   
+                    Seccion de Agentes propietarios   
                  </h1>
                </div>  
-               </div>
+               <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($agentes as $agente)
+                    <tr>
+                        <td>{{ $agente->nombre }}</td>
+                        <td>{{ $agente->apellido }}</td>
+                        <td>{{ $agente->direccion }}</td>
+                        <td>{{ $agente->telefono }}</td>
+                        <td>{{ $agente->correo }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+                 </div>
+      </div>
           <!--SECCION DE REPORTES-->   <!--Rol: Agente vendedor y propietario-->
           <div id="reportes-section" class="content-section">
             <div class="breadcrumb">

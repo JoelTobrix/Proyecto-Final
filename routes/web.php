@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PropiedadController;
 use App\Models\Propiedad;
+use App\Http\AgenteController;
+use App\Models\Agente;
 /*
 Rutas de navegacion
 |
@@ -33,7 +35,8 @@ Route::get('/inmobiliaria', function() {
     }
     $usuario = session('usuario');
     $propiedades = Propiedad::paginate(9);
-    return view('inmobiliaria', compact('usuario' ,'propiedades'));
+    $agentes = Agente::where('rol_id', 3)->get();
+    return view('inmobiliaria', compact('usuario' ,'propiedades', 'agentes'));
 })->name('inmobiliaria');
 
 
@@ -44,6 +47,9 @@ Route::post('/register', [UsuarioController::class, 'registrar'])->name('usuario
 
 //Muestra propiedades
 Route::get('/catalogo', [PropiedadController::class, 'index'])->name('catalogo');
+
+//Muestra agentes vendedores
+Route:: get('/agentes', [AgenteController::class,  'agentes'])->name('agentes');
 
 
 
