@@ -1072,14 +1072,22 @@ body {
     font-size: 0.85rem;
   }
 }
-
-
 /* Professional Table Styling */
 .content-section {
-  background: #f8f9fa;
-  min-height: 100vh;
-  padding: 20px;
+    background: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px;
+    
+    /* Oculta todas las secciones por defecto */
+    display: none;
 }
+
+/* Muestra solo la sección que tiene la clase 'active' */
+.content-section.active {
+    display: block;
+}
+
+
 
 .breadcrumb {
   display: flex;
@@ -1246,4 +1254,6 @@ body {
   color: #6c757d;
   font-style: italic;
 }
+
+
 

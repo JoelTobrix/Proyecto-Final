@@ -665,7 +665,7 @@
            </div>
            </div>
 
-   <!-- SECCION CATALOGO -->
+  <!-- SECCION CATALOGO -->
 <div id="catalogo-section" class="content-section">
     <!-- Breadcrumb -->
     <div class="breadcrumb mb-3">
@@ -681,7 +681,7 @@
 
   <!-- Listado de propiedades -->
 <div class="row mt-4">
-    @forelse($propiedades as $propiedad)
+    @forelse($propiedades as $index => $propiedad)
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
                 @if($propiedad->imagen)
@@ -699,7 +699,7 @@
 
                 <div class="card-footer text-center">
                     <!-- Botón que abre el modal -->
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPropiedad{{ $propiedad->id }}">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPropiedad{{ $index }}">
                         Ver más
                     </button>
                 </div>
@@ -707,11 +707,11 @@
         </div>
 
         <!-- Modal de propiedad -->
-        <div class="modal fade" id="modalPropiedad{{ $propiedad->id }}" tabindex="-1" aria-labelledby="modalPropiedadLabel{{ $propiedad->id }}" aria-hidden="true">
+        <div class="modal fade" id="modalPropiedad{{ $index }}" tabindex="-1" aria-labelledby="modalPropiedadLabel{{ $index }}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalPropiedadLabel{{ $propiedad->id }}">{{ $propiedad->titulo }}</h5>
+                        <h5 class="modal-title" id="modalPropiedadLabel{{ $index }}">{{ $propiedad->titulo }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body">
@@ -726,8 +726,12 @@
                         <p><strong>Descripción:</strong> {{ $propiedad->descripcion }}</p>
                     </div>
                     <div class="modal-footer">
-                        <!-- Botón para abrir modal de agendar cita -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCita{{ $propiedad->id }}">
+                        <!-- Botón para abrir modal de agendar cita (corregido) -->
+                        <button type="button" 
+                                class="btn btn-success" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modalCita{{ $index }}" 
+                                data-bs-dismiss="modal">
                             Agendar cita
                         </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -737,11 +741,11 @@
         </div>
 
         <!-- Modal de Agendar Cita -->
-        <div class="modal fade" id="modalCita{{ $propiedad->id }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $propiedad->id }}" aria-hidden="true">
+        <div class="modal fade" id="modalCita{{ $index }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $index }}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalCitaLabel{{ $propiedad->id }}">Agendar cita para {{ $propiedad->titulo }}</h5>
+                        <h5 class="modal-title" id="modalCitaLabel{{ $index }}">Agendar cita para {{ $propiedad->titulo }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body">
@@ -777,6 +781,8 @@
     @endforelse
 </div>
 </div>
+
+
 
 
 <!-- Estilos profesionales -->
