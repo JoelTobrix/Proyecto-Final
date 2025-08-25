@@ -87,8 +87,8 @@
             </form>
 
             <div class="forgot-password">
-                <a href="#" onclick="handleForgotPassword()">¿Perdiste tu contraseña?</a>
-            </div>
+    <a href="{{ route('password.request') }}">¿Perdiste tu contraseña?</a>
+</div>
         </div>
     </div>
 

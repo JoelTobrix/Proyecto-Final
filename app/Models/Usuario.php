@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -6,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Usuario extends Model
 {
     protected $table = 'usuarios';
+    protected $primaryKey = 'idUsuario'; // <-- clave primaria autoincremental
 
     protected $fillable = [
         'nombre', 'apellido', 'direccion', 'telefono', 'correo', 'contrasena', 'rol_id'
@@ -18,4 +20,3 @@ class Usuario extends Model
         return $this->belongsTo(Rol::class, 'rol_id', 'RollId');
     }
 }
-
