@@ -553,14 +553,14 @@
                     <i class="fas fa-home"></i>
                     <span>Escritorio</span>
                     <i class="fas fa-chevron-right"></i>
-                    <span>Blog</span>
+                    <span>Agentes vendedores</span>
                 </div>
                 <div class="section-header">
                     <h1>
                         <i class="fas fa-blog"></i>
-                        Gestión de Blog
+                        Agentes vendedores
                     </h1>
-                    <p>Administra todas las entradas de tu blog inmobiliario</p>
+                    <p>Asignar agente vendedor</p>
                 </div>
                 <!-- Aquí irían los artículos del blog -->
                 <div class="coming-soon">
