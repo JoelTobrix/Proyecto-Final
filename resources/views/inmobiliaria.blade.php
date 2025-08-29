@@ -664,7 +664,8 @@
            </form>
            </div>
            </div>
-
+           
+ 
   <!-- SECCION CATALOGO -->
 <div id="catalogo-section" class="content-section">
     <!-- Breadcrumb -->
@@ -741,40 +742,45 @@
         </div>
 
         <!-- Modal de Agendar Cita -->
-        <div class="modal fade" id="modalCita{{ $index }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $index }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCitaLabel{{ $index }}">Agendar cita para {{ $propiedad->titulo }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="nombreCita{{ $propiedad->id }}" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombreCita{{ $propiedad->id }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="emailCita{{ $propiedad->id }}" class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="emailCita{{ $propiedad->id }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fechaCita{{ $propiedad->id }}" class="form-label">Fecha</label>
-                                <input type="date" class="form-control" id="fechaCita{{ $propiedad->id }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="horaCita{{ $propiedad->id }}" class="form-label">Hora</label>
-                                <input type="time" class="form-control" id="horaCita{{ $propiedad->id }}">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Enviar cita</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
+         <div class="modal fade" id="modalCita{{ $index }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $index }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCitaLabel{{ $index }}">Agendar cita para {{ $propiedad->titulo }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('citas.store') }}">
+                           @csrf
+                       <input type="hidden" name="propiedad_id" value="{{ $propiedad->idPropiedad }}">
+    
+                        <div class="mb-3">
+                         <label for="nombreCita{{ $propiedad->idPropiedad }}" class="form-label">Nombre</label>
+                         <input type="text" class="form-control" id="nombreCita{{ $propiedad->idPropiedad }}" name="nombre" required>
+                               </div>
+                         <div class="mb-3">
+             <label for="emailCita{{ $propiedad->idPropiedad }}" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="emailCita{{ $propiedad->idPropiedad }}" name="correo" required>
+    </div>
+    <div class="mb-3">
+        <label for="fechaCita{{ $propiedad->idPropiedad }}" class="form-label">Fecha</label>
+        <input type="date" class="form-control" id="fechaCita{{ $propiedad->idPropiedad }}" name="fecha" required>
+    </div>
+    <div class="mb-3">
+        <label for="horaCita{{ $propiedad->idPropiedad }}" class="form-label">Hora</label>
+        <input type="time" class="form-control" id="horaCita{{ $propiedad->idPropiedad }}" name="hora" required>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Enviar cita</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+               </form>
+
             </div>
         </div>
+    </div>
+</div>
 
     @empty
         <p class="text-center">No hay propiedades disponibles.</p>

@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PropiedadController;
 use App\Models\Propiedad;
-use App\Http\AgenteController;
+use App\Http\Controllers\AgenteController;
+use App\Http\Controllers\CitaController;
 use App\Models\Agente;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Mail;
@@ -139,6 +140,9 @@ Route::get('/catalogo', [PropiedadController::class, 'index'])->name('catalogo')
 
 //Muestra agentes vendedores
 Route:: get('/agentes', [AgenteController::class,  'agentes'])->name('agentes');
+
+//Ruta agendar cita
+Route:: post('/citas', [CitaController::class, 'store'])->name('citas.store');
 
 
 
