@@ -547,7 +547,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN BLOG (Ejemplo adicional) -->
+            <!-- SECCIÓN AGENTES VENDEDORES(Ejemplo adicional) -->
             <div id="blog-section" class="content-section">
                 <div class="breadcrumb">
                     <i class="fas fa-home"></i>
