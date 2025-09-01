@@ -19,5 +19,6 @@ class Propiedad extends Model
     public $timestamps = false;
     
     
-    protected $fillable = ['titulo', 'ubicacion', 'precio', 'descripcion', 'imagen', 'estado'];
+    protected $fillable = ['titulo', 'ubicacion', 'precio', 'descripcion', 'imagen', 'estado', 'disponible'];
+
 }
