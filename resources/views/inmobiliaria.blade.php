@@ -1207,21 +1207,127 @@
                 </h1>
                </div>  
                </div> 
-         <!--SECCION DE PROPIEDADES DESTACADAS-->  <!--Rol:Todos--> 
-          <div id="destacadas-section" class="content-section">
-            <div class= "breadcrumb">
-                <i class="fas fa-home"></i>
-                <span>Escritorio</span>
-                <i class="fas fa-chevron-right"></i>
-                   <span>Real Estate</span> 
+               
+     <!--SECCION DE PROPIEDADES DESTACADAS-->  <!--Rol:Todos--> 
+<div id="destacadas-section" class="content-section">
+    <div class="breadcrumb">
+        <i class="fas fa-home"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Real Estate</span> 
+    </div>
+    
+    <div class="section-header">
+        <h2>
+            <i class="fas fa-building"></i>
+            Sección de Propiedades Destacadas
+        </h2>
+    </div>
+
+    <!-- Contenedor con los cards -->
+    <div id="cards-container" class="cards-grid">
+        <!-- Card Propiedades Destacadas -->
+        <div class="page-card">
+            <div class="page-icon destacadas">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="page-content">
+                <h3>Propiedades Destacadas</h3>
+                <p>Catálogo completo de todas las propiedades más vendidas</p>
+                <div class="page-stats">
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        2,567 visitas
+                    </span>
+                    <span class="status active">Activa</span>
                 </div>
-               <div class="section-header">
-                <h1>
-                    <i class="fas fa-building"></i>
-                    Seccion de Propiedades destacadas
-                </h1>
-               </div>  
-               </div> 
+            </div>
+            <div class="page-actions">
+                <button class="btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Editar
+                </button>
+                <button class="btn-view">
+                    <i class="fas fa-external-link-alt"></i>
+                    VER
+                </button>
+            </div>
+        </div>
+
+        <!-- Card Propiedades Registradas -->
+        <div class="page-card">
+            <div class="page-icon registradas">
+                <i class="fas fa-list"></i>
+            </div>
+            <div class="page-content">
+                <h3>Propiedades Registradas</h3>
+                <p>Sección de propiedades registradas en el sistema</p>
+                <div class="page-stats">
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        1,234 visitas
+                    </span>
+                    <span class="status active">Activa</span>
+                </div>
+            </div>
+            <div class="page-actions">
+                <button class="btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Editar
+                </button>
+                <!-- Botón que mostrará CRUD -->
+                <button class="btn-view" id="btn-admin">
+                    <i class="fas fa-external-link-alt"></i>
+                    Administrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor para el CRUD (invisible al inicio) -->
+    <div id="administrar-container" style="display:none; margin-top:20px;"></div>
+</div>
+
+<!-- Script para mostrar tabla CRUD y botón regresar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let btnAdmin = document.getElementById('btn-admin');
+    let cardsContainer = document.getElementById('cards-container');
+    let administrarContainer = document.getElementById('administrar-container');
+
+    btnAdmin.addEventListener('click', function() {
+        // Ocultar cards
+        cardsContainer.style.display = 'none';
+
+        // Mostrar contenedor CRUD
+        administrarContainer.style.display = 'block';
+
+        // Cargar tabla CRUD via fetch
+        fetch('{{ route("propiedades.administrar") }}')
+            .then(response => response.text())
+            .then(html => {
+                // Añadimos botón regresar arriba de la tabla
+                administrarContainer.innerHTML = `
+                    <button id="btn-regresar" class="btn btn-secondary" style="margin-bottom:10px;">Regresar</button>
+                    ${html}
+                `;
+
+                // Botón regresar
+                document.getElementById('btn-regresar').addEventListener('click', function() {
+                    // Mostrar cards
+                    cardsContainer.style.display = 'flex';
+                    // Ocultar CRUD
+                    administrarContainer.style.display = 'none';
+                    administrarContainer.innerHTML = '';
+                });
+            })
+            .catch(error => console.error('Error al cargar propiedades:', error));
+    });
+});
+</script>
+
+
+
           <!--SECCION DE USUARIOS-->    <!--Rol: todos-->  
           <div id="usuarios-section" class="content-section">
             <div class="breadcrumb">
