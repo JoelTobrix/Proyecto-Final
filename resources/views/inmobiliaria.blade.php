@@ -580,68 +580,58 @@
                 </div>
             </div>
 
-             <!-- SECCIÓN ASIGNAR PROPIEDADES(Ejemplo adicional) -->
-              <div id="propiedad-section" class="content-section">
-                <div class="breadcrumb">
-                   <span>Escritorio</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Asignar propiedad</span>
-                </div>
-                <div class="section-header">
-                    <h1>
-                        <i class="fas fa-blog"></i>
-                        Propiedades y terrenos
-                    </h1>
-                    <p>Asignar propiedad</p>
-                </div> 
-                 <!-- FORMULARIO DE REGISTRO -->
+             <!-- SECCIÓN ASIGNAR PROPIEDADES -->
+<div id="propiedad-section" class="content-section">
+    <div class="breadcrumb">
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Asignar propiedad</span>
+    </div>
+    <div class="section-header">
+        <h1>
+            <i class="fas fa-blog"></i>
+            Propiedades y terrenos
+        </h1>
+        <p>Asignar propiedad</p>
+    </div> 
+
+    <!-- FORMULARIO DE REGISTRO -->
     <div class="card mt-4">
         <div class="card-body">
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
-            <form action="{{ route('propiedades.store') }}" method="POST">
+            <form action="{{ route('propiedades.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div class="form-group mb-3">
                     <label for="titulo">Título</label>
                     <input type="text" name="titulo" id="titulo" class="form-control" value="{{ old('titulo') }}" required maxlength="100">
-                    @error('titulo')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                    @error('titulo') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="ubicacion">Ubicación</label>
                     <input type="text" name="ubicacion" id="ubicacion" class="form-control" value="{{ old('ubicacion') }}" required maxlength="100">
-                    @error('ubicacion')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                    @error('ubicacion') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="precio">Precio</label>
                     <input type="number" name="precio" id="precio" class="form-control" value="{{ old('precio') }}" required>
-                    @error('precio')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                    @error('precio') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="descripcion">Descripción</label>
                     <textarea name="descripcion" id="descripcion" class="form-control" rows="3" required maxlength="255">{{ old('descripcion') }}</textarea>
-                    @error('descripcion')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                    @error('descripcion') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="imagen">URL de la Imagen</label>
-                    <input type="text" name="imagen" id="imagen" class="form-control" value="{{ old('imagen') }}" required maxlength="255">
-                    @error('imagen')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                    <label for="imagen">Imagen</label>
+                    <input type="file" name="imagen" id="imagen" class="form-control" required>
+                    @error('imagen') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
                 <div class="form-group mb-3">
@@ -650,16 +640,17 @@
                         <option value="disponible" {{ old('estado')=='disponible' ? 'selected' : '' }}>Disponible</option>
                         <option value="reservada" {{ old('estado')=='reservada' ? 'selected' : '' }}>Reservada</option>
                     </select>
-                    @error('estado')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                    @error('estado') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary">Guardar Propiedad</button>
             </form>
         </div>
     </div>
-                </div> 
+
+</div>
+
+
 
             <!-- SECCIÓN GESTION DE PROPIEDADES -->    <!--Rol Agente vendedor y propietario-->
                 <div id="realestate-section" class="content-section">
@@ -1277,9 +1268,10 @@
                 </button>
                 <!-- Botón que mostrará CRUD -->
                 <button class="btn-view" id="btn-admin">
-                    <i class="fas fa-external-link-alt"></i>
-                    Administrar
-                </button>
+             <i class="fas fa-external-link-alt"></i>
+            Administrar
+            </button>
+
             </div>
         </div>
     </div>

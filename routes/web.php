@@ -133,16 +133,16 @@ Route::get('/propiedades/create', [PropiedadController::class, 'create'])->name(
 // Guardar nueva propiedad
 Route::post('/propiedades', [PropiedadController::class, 'store'])->name('propiedades.store');
 
-//Mostrar listado de propiedades y terrenos
+// Mostrar listado de propiedades y terrenos
 Route::get('/propiedades/administrar', [PropiedadController::class, 'administrar'])->name('propiedades.administrar');
 
-//Editar propiedad en el form
+// Editar propiedad en el formulario
 Route::get('/propiedades/{id}/editar', [PropiedadController::class, 'editar'])->name('propiedades.editar');
 
-//Uptade propiedad
-Route::put('/propiedades/{id}/actualizar', [PropiedadController::class, 'actualizar'])->name('propiedades.actualizar');
+// Actualizar propiedad (cambia el nombre de la ruta a 'update' para que coincida con el formulario)
+Route::put('/propiedades/{id}', [PropiedadController::class, 'actualizar'])->name('propiedades.update');
 
-//Delete propiedad
+// Eliminar propiedad
 Route::delete('/propiedades/{id}/eliminar', [PropiedadController::class, 'eliminar'])->name('propiedades.eliminar');
 
 /* -----------------------------

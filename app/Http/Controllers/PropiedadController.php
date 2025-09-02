@@ -7,7 +7,14 @@ use Illuminate\Http\Request;
 
 class PropiedadController extends Controller
 {
-    // 1️⃣ Guardar propiedad nueva
+    // Mostrar formulario y listado principal
+    public function index()
+    {
+        $propiedades = Propiedad::all(); // Trae todas las propiedades
+        return view('inmobiliaria', compact('propiedades'));
+    }
+
+    // Guardar propiedad nueva
     public function store(Request $request)
     {
         $request->validate([
@@ -15,18 +22,21 @@ class PropiedadController extends Controller
             'ubicacion' => 'required|string|max:255',
             'precio' => 'required|numeric',
             'descripcion' => 'required|string|max:255',
-            'imagen' => 'required|string|max:255',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'estado' => 'required|string|in:disponible,reservada',
         ]);
 
         $disponible = ($request->estado === 'disponible') ? 1 : 0;
+
+        // Guardar imagen en storage/app/public/propiedades
+        $imagenPath = $request->file('imagen')->store('propiedades', 'public');
 
         Propiedad::create([
             'titulo' => $request->titulo,
             'ubicacion' => $request->ubicacion,
             'precio' => $request->precio,
             'descripcion' => $request->descripcion,
-            'imagen' => $request->imagen,
+            'imagen' => $imagenPath,
             'estado' => $request->estado,
             'disponible' => $disponible
         ]);
@@ -34,55 +44,62 @@ class PropiedadController extends Controller
         return redirect()->back()->with('success', 'Propiedad creada correctamente');
     }
 
-    // 2 Listar propiedades (para CRUD / Administrar)
-    public function administrar()
-{
-    $propiedades = Propiedad::all();
-    return view('propiedades.administrar', compact('propiedades'));
-}
-
-    // 3 Mostrar formulario de edición
+    // Editar propiedad
     public function editar($id)
     {
-        $prop = Propiedad::findOrFail($id);
-        return view('propiedades.editar', compact('prop'));
+        $propiedad = Propiedad::findOrFail($id);
+        return view('propiedades.editar', compact('propiedad'));
     }
 
-    // 4 Actualizar propiedad
+    // Actualizar propiedad
     public function actualizar(Request $request, $id)
     {
-        $prop = Propiedad::findOrFail($id);
+        $propiedad = Propiedad::findOrFail($id);
 
         $request->validate([
             'titulo' => 'required|string|max:255',
             'ubicacion' => 'required|string|max:255',
             'precio' => 'required|numeric',
             'descripcion' => 'required|string|max:255',
-            'imagen' => 'required|string|max:255',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'estado' => 'required|string|in:disponible,reservada',
         ]);
 
         $disponible = ($request->estado === 'disponible') ? 1 : 0;
 
-        $prop->update([
+        // Actualizar imagen si se sube
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('propiedades', 'public');
+            $propiedad->imagen = $imagenPath;
+        }
+
+        $propiedad->update([
             'titulo' => $request->titulo,
             'ubicacion' => $request->ubicacion,
             'precio' => $request->precio,
             'descripcion' => $request->descripcion,
-            'imagen' => $request->imagen,
             'estado' => $request->estado,
             'disponible' => $disponible
         ]);
 
-        return redirect()->route('propiedades.administrar')->with('success', 'Propiedad actualizada correctamente');
+        return redirect()->route('propiedades.index')->with('success', 'Propiedad actualizada correctamente');
     }
 
-    // 5️⃣ Eliminar propiedad
+    // Eliminar propiedad
     public function eliminar($id)
     {
         $prop = Propiedad::findOrFail($id);
         $prop->delete();
 
-        return redirect()->route('propiedades.administrar')->with('success', 'Propiedad eliminada correctamente');
+        return redirect()->route('propiedades.index')->with('success', 'Propiedad eliminada correctamente');
     }
+
+    //Administrar propiedades (solo tabla para cargar via fetch)
+    
+    public function administrar()
+   {
+    $propiedades = Propiedad::all();
+    return view('propiedades.tabla', compact('propiedades'));
+   }
+
 }
