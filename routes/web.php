@@ -12,7 +12,7 @@ use App\Models\Cita;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CodigoRecuperacionMail;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
 /*
 Rutas de navegación
 */
@@ -113,6 +113,60 @@ Route::post('/reset-password', function (\Illuminate\Http\Request $request) {
         return back()->withErrors(['password' => 'No se encontró el usuario.']);
     }
 })->name('password.reset');
+
+
+// Ruta para enviar el token al correo
+Route::post('/enviar-token', function(Request $request) {
+    $correo = $request->correo;
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        return response()->json(['success' => false, 'message' => 'Correo inválido']);
+    }
+    $token = random_int(100000, 999999);
+    session(['registro_token' => $token, 'registro_correo' => $correo]);
+    Mail::to($correo)->send(new CodigoRecuperacionMail($token));
+    return response()->json(['success' => true]);
+});
+
+// Ruta para validar el token
+Route::post('/validar-token', function(Request $request) {
+    $correo = $request->correo;
+    $token = $request->token;
+    if (
+        session('registro_token') &&
+        session('registro_correo') == $correo &&
+        session('registro_token') == $token
+    ) {
+        return response()->json(['valido' => true]);
+    }
+    return response()->json(['valido' => false]);
+});
+
+
+// Ruta para enviar el token al correo
+Route::post('/enviar-token', function(Request $request) {
+    $correo = $request->correo;
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        return response()->json(['success' => false, 'message' => 'Correo inválido']);
+    }
+    $token = random_int(100000, 999999);
+    session(['registro_token' => $token, 'registro_correo' => $correo]);
+    Mail::to($correo)->send(new CodigoRecuperacionMail($token));
+    return response()->json(['success' => true]);
+});
+
+// Ruta para validar el token
+Route::post('/validar-token', function(Request $request) {
+    $correo = $request->correo;
+    $token = $request->token;
+    if (
+        session('registro_token') &&
+        session('registro_correo') == $correo &&
+        session('registro_token') == $token
+    ) {
+        return response()->json(['valido' => true]);
+    }
+    return response()->json(['valido' => false]);
+});
 
 /* -----------------------------
    Usuarios
