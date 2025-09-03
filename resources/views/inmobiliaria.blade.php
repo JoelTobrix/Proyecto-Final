@@ -77,6 +77,16 @@
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li> @endif
+
+                    @if(in_array($usuario->rol_id, [3]))
+                    <li class="nav-item" id="propiedad-nav">
+                    <a href="#" class="nav-link" onclick="showSection('propiedad', this)">   
+                     <i class="fas fa-home"></i>
+                            <span>Asignar nueva propiedad</span>
+                            <i class="fas fa-chevron-right expand-icon"></i>
+                     </a>
+                    </li> @endif
+
                     @if(in_array($usuario->rol_id, [3]))
                     <li class="nav-item" id="realestate-nav">
                         <a href="#" class="nav-link" onclick="showSection('realestate', this)">
@@ -93,7 +103,18 @@
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li> @endif
-                   @if(in_array($usuario->rol_id, [1,2,3]))
+                    @if(in_array($usuario->rol_id, [2]))
+                   <li class="nav-item" id="citas-nav">
+                       <a href="#" class="nav-link" onclick="showSection('citas',this)">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Citas pendientes</span>
+                        <i class="fas fa-chevron-right expand-icon"></i>
+                        </a>
+                    </li> @endif
+
+
+
+                   @if(in_array($usuario->rol_id, [1]))
                     <li class="nav-item" id="catalogo-nav">
                         <a href="#" class="nav-link" onclick="showSection('catalogo',this)">
                             <i class="fas fa-book"></i>
@@ -547,7 +568,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN BLOG (Ejemplo adicional) -->
+            <!-- SECCIÓN AGENTES VENDEDORES(Ejemplo adicional) -->
             <div id="blog-section" class="content-section">
                 <div class="breadcrumb">
                     <i class="fas fa-home"></i>
@@ -570,8 +591,80 @@
                 </div>
             </div>
 
+             <!-- SECCIÓN ASIGNAR PROPIEDADES -->
+<div id="propiedad-section" class="content-section">
+    <div class="breadcrumb">
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Asignar propiedad</span>
+    </div>
+    <div class="section-header">
+        <h1>
+            <i class="fas fa-blog"></i>
+            Propiedades y terrenos
+        </h1>
+        <p>Asignar propiedad</p>
+    </div> 
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <div class="card mt-4">
+        <div class="card-body">
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <form action="{{ route('propiedades.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group mb-3">
+                    <label for="titulo">Título</label>
+                    <input type="text" name="titulo" id="titulo" class="form-control" value="{{ old('titulo') }}" required maxlength="100">
+                    @error('titulo') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="ubicacion">Ubicación</label>
+                    <input type="text" name="ubicacion" id="ubicacion" class="form-control" value="{{ old('ubicacion') }}" required maxlength="100">
+                    @error('ubicacion') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="precio">Precio</label>
+                    <input type="number" name="precio" id="precio" class="form-control" value="{{ old('precio') }}" required>
+                    @error('precio') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" class="form-control" rows="3" required maxlength="255">{{ old('descripcion') }}</textarea>
+                    @error('descripcion') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" name="imagen" id="imagen" class="form-control" required>
+                    @error('imagen') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="estado">Estado</label>
+                    <select name="estado" id="estado" class="form-control" required>
+                        <option value="disponible" {{ old('estado')=='disponible' ? 'selected' : '' }}>Disponible</option>
+                        <option value="reservada" {{ old('estado')=='reservada' ? 'selected' : '' }}>Reservada</option>
+                    </select>
+                    @error('estado') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar Propiedad</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
             <!-- SECCIÓN GESTION DE PROPIEDADES -->    <!--Rol Agente vendedor y propietario-->
-            <div id="realestate-section" class="content-section">
+                <div id="realestate-section" class="content-section">
                 <div class="breadcrumb">
                     <i class="fas fa-home"></i>
                     <span>Escritorio</span>
@@ -585,6 +678,7 @@
                     </h1>
                     <p>Administra todas las propiedades de tu inmobiliaria</p>
                 </div>
+
                 <!-- Lista propiedades -->
                 
             </div>
@@ -664,7 +758,20 @@
            </form>
            </div>
            </div>
+   <!-- SECCION CITAS PENDIENTES -->
+          <div id="citas-section" class="content-section"> 
+           <div class="breadcrumb mb-3">
+           <i class="fas fa-calendar-alt"></i>
+           <span>Escritorio</span>
+           <i class="fas fa-chevron-right"></i>
+        <span>Real Estate</span>  
+    </div>
 
+    <div class="section-header mb-4">
+        <h1><i class="fas fa-book"></i> Sección de Citas Pendientes</h1>
+    </div>
+</div>
+ 
   <!-- SECCION CATALOGO -->
 <div id="catalogo-section" class="content-section">
     <!-- Breadcrumb -->
@@ -741,40 +848,45 @@
         </div>
 
         <!-- Modal de Agendar Cita -->
-        <div class="modal fade" id="modalCita{{ $index }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $index }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCitaLabel{{ $index }}">Agendar cita para {{ $propiedad->titulo }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="nombreCita{{ $propiedad->id }}" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombreCita{{ $propiedad->id }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="emailCita{{ $propiedad->id }}" class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="emailCita{{ $propiedad->id }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fechaCita{{ $propiedad->id }}" class="form-label">Fecha</label>
-                                <input type="date" class="form-control" id="fechaCita{{ $propiedad->id }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="horaCita{{ $propiedad->id }}" class="form-label">Hora</label>
-                                <input type="time" class="form-control" id="horaCita{{ $propiedad->id }}">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Enviar cita</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
+         <div class="modal fade" id="modalCita{{ $index }}" tabindex="-1" aria-labelledby="modalCitaLabel{{ $index }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCitaLabel{{ $index }}">Agendar cita para {{ $propiedad->titulo }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('citas.store') }}">
+                           @csrf
+                       <input type="hidden" name="propiedad_id" value="{{ $propiedad->idPropiedad }}">
+    
+                        <div class="mb-3">
+                         <label for="nombreCita{{ $propiedad->idPropiedad }}" class="form-label">Nombre</label>
+                         <input type="text" class="form-control" id="nombreCita{{ $propiedad->idPropiedad }}" name="nombre" required>
+                               </div>
+                         <div class="mb-3">
+             <label for="emailCita{{ $propiedad->idPropiedad }}" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="emailCita{{ $propiedad->idPropiedad }}" name="correo" required>
+    </div>
+    <div class="mb-3">
+        <label for="fechaCita{{ $propiedad->idPropiedad }}" class="form-label">Fecha</label>
+        <input type="date" class="form-control" id="fechaCita{{ $propiedad->idPropiedad }}" name="fecha" required>
+    </div>
+    <div class="mb-3">
+        <label for="horaCita{{ $propiedad->idPropiedad }}" class="form-label">Hora</label>
+        <input type="time" class="form-control" id="horaCita{{ $propiedad->idPropiedad }}" name="hora" required>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Enviar cita</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+               </form>
+
             </div>
         </div>
+    </div>
+</div>
 
     @empty
         <p class="text-center">No hay propiedades disponibles.</p>
@@ -1109,21 +1221,128 @@
                 </h1>
                </div>  
                </div> 
-         <!--SECCION DE PROPIEDADES DESTACADAS-->  <!--Rol:Todos--> 
-          <div id="destacadas-section" class="content-section">
-            <div class= "breadcrumb">
-                <i class="fas fa-home"></i>
-                <span>Escritorio</span>
-                <i class="fas fa-chevron-right"></i>
-                   <span>Real Estate</span> 
+               
+     <!--SECCION DE PROPIEDADES DESTACADAS-->  <!--Rol:Todos--> 
+<div id="destacadas-section" class="content-section">
+    <div class="breadcrumb">
+        <i class="fas fa-home"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Real Estate</span> 
+    </div>
+    
+    <div class="section-header">
+        <h2>
+            <i class="fas fa-building"></i>
+            Sección de Propiedades Destacadas
+        </h2>
+    </div>
+
+    <!-- Contenedor con los cards -->
+    <div id="cards-container" class="cards-grid">
+        <!-- Card Propiedades Destacadas -->
+        <div class="page-card">
+            <div class="page-icon destacadas">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="page-content">
+                <h3>Propiedades Destacadas</h3>
+                <p>Catálogo completo de todas las propiedades más vendidas</p>
+                <div class="page-stats">
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        2,567 visitas
+                    </span>
+                    <span class="status active">Activa</span>
                 </div>
-               <div class="section-header">
-                <h1>
-                    <i class="fas fa-building"></i>
-                    Seccion de Propiedades destacadas
-                </h1>
-               </div>  
-               </div> 
+            </div>
+            <div class="page-actions">
+                <button class="btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Editar
+                </button>
+                <button class="btn-view">
+                    <i class="fas fa-external-link-alt"></i>
+                    VER
+                </button>
+            </div>
+        </div>
+
+        <!-- Card Propiedades Registradas -->
+        <div class="page-card">
+            <div class="page-icon registradas">
+                <i class="fas fa-list"></i>
+            </div>
+            <div class="page-content">
+                <h3>Propiedades Registradas</h3>
+                <p>Sección de propiedades registradas en el sistema</p>
+                <div class="page-stats">
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        1,234 visitas
+                    </span>
+                    <span class="status active">Activa</span>
+                </div>
+            </div>
+            <div class="page-actions">
+                <button class="btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Editar
+                </button>
+                <!-- Botón que mostrará CRUD -->
+                <button class="btn-view" id="btn-admin">
+             <i class="fas fa-external-link-alt"></i>
+            Administrar
+            </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor para el CRUD (invisible al inicio) -->
+    <div id="administrar-container" style="display:none; margin-top:20px;"></div>
+</div>
+
+<!-- Script para mostrar tabla CRUD y botón regresar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let btnAdmin = document.getElementById('btn-admin');
+    let cardsContainer = document.getElementById('cards-container');
+    let administrarContainer = document.getElementById('administrar-container');
+
+    btnAdmin.addEventListener('click', function() {
+        // Ocultar cards
+        cardsContainer.style.display = 'none';
+
+        // Mostrar contenedor CRUD
+        administrarContainer.style.display = 'block';
+
+        // Cargar tabla CRUD via fetch
+        fetch('{{ route("propiedades.administrar") }}')
+            .then(response => response.text())
+            .then(html => {
+                // Añadimos botón regresar arriba de la tabla
+                administrarContainer.innerHTML = `
+                    <button id="btn-regresar" class="btn btn-secondary" style="margin-bottom:10px;">Regresar</button>
+                    ${html}
+                `;
+
+                // Botón regresar
+                document.getElementById('btn-regresar').addEventListener('click', function() {
+                    // Mostrar cards
+                    cardsContainer.style.display = 'flex';
+                    // Ocultar CRUD
+                    administrarContainer.style.display = 'none';
+                    administrarContainer.innerHTML = '';
+                });
+            })
+            .catch(error => console.error('Error al cargar propiedades:', error));
+    });
+});
+</script>
+
+
+
           <!--SECCION DE USUARIOS-->    <!--Rol: todos-->  
           <div id="usuarios-section" class="content-section">
             <div class="breadcrumb">
