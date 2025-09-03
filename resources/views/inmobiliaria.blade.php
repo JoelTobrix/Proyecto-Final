@@ -103,6 +103,17 @@
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li> @endif
+                    @if(in_array($usuario->rol_id, [2]))
+                   <li class="nav-item" id="citas-nav">
+                       <a href="#" class="nav-link" onclick="showSection('citas',this)">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Citas pendientes</span>
+                        <i class="fas fa-chevron-right expand-icon"></i>
+                        </a>
+                    </li> @endif
+
+
+
                    @if(in_array($usuario->rol_id, [1]))
                     <li class="nav-item" id="catalogo-nav">
                         <a href="#" class="nav-link" onclick="showSection('catalogo',this)">
@@ -747,7 +758,19 @@
            </form>
            </div>
            </div>
-           
+   <!-- SECCION CITAS PENDIENTES -->
+          <div id="citas-section" class="content-section"> 
+           <div class="breadcrumb mb-3">
+           <i class="fas fa-calendar-alt"></i>
+           <span>Escritorio</span>
+           <i class="fas fa-chevron-right"></i>
+        <span>Real Estate</span>  
+    </div>
+
+    <div class="section-header mb-4">
+        <h1><i class="fas fa-book"></i> Sección de Citas Pendientes</h1>
+    </div>
+</div>
  
   <!-- SECCION CATALOGO -->
 <div id="catalogo-section" class="content-section">
