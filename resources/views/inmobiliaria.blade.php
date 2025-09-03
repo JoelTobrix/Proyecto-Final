@@ -758,19 +758,74 @@
            </form>
            </div>
            </div>
-   <!-- SECCION CITAS PENDIENTES -->
-          <div id="citas-section" class="content-section"> 
-           <div class="breadcrumb mb-3">
-           <i class="fas fa-calendar-alt"></i>
-           <span>Escritorio</span>
-           <i class="fas fa-chevron-right"></i>
+  <!-- SECCION CITAS PENDIENTES -->
+<div id="citas-section" class="content-section"> 
+    <div class="breadcrumb mb-3">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
         <span>Real Estate</span>  
     </div>
 
     <div class="section-header mb-4">
-        <h1><i class="fas fa-book"></i> Sección de Citas Pendientes</h1>
+        <h1><i class="fas fa-calendar-alt"></i> Sección de Citas Pendientes</h1>
     </div>
+
+    @if($citas->count() > 0)
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Propiedad</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($citas as $cita)
+                    <tr>
+                        <td>{{ $cita->nombre }}</td>
+                        <td>{{ $cita->correo }}</td>
+                        <td>{{ $cita->fecha }}</td>
+                        <td>{{ $cita->hora }}</td>
+                        <td>{{ $cita->propiedad ? $cita->propiedad->titulo : 'Sin propiedad' }}</td>
+                       <td>
+                       @if($cita->estado === 'aceptada')
+                       <span class="badge bg-success">Aceptada</span>
+                       @elseif($cita->estado === 'rechazada')
+                    <span class="badge bg-danger">Rechazada</span>
+                       @else
+                     <span class="badge bg-warning text-dark">Pendiente</span>
+                      @endif
+                    </td>
+
+                        <td>
+                            <!-- Formulario para aceptar -->
+                            <form action="{{ route('citas.aceptar', $cita->idCita) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                            </form>
+
+                            <!-- Formulario para rechazar -->
+                            <form action="{{ route('citas.rechazar', $cita->idCita) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>No hay citas pendientes.</p>
+    @endif
 </div>
+
+
  
   <!-- SECCION CATALOGO -->
 <div id="catalogo-section" class="content-section">

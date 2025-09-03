@@ -8,6 +8,7 @@ use App\Http\Controllers\AgenteController;
 use App\Http\Controllers\CitaController;
 use App\Models\Agente;
 use App\Models\Usuario;
+use App\Models\Cita;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CodigoRecuperacionMail;
 use Illuminate\Support\Facades\Hash;
@@ -43,7 +44,8 @@ Route::get('/inmobiliaria', function() {
     $usuario = session('usuario');
     $propiedades = Propiedad::paginate(9);
     $agentes = Agente::where('rol_id', 3)->get();
-    return view('inmobiliaria', compact('usuario' ,'propiedades', 'agentes'));
+     $citas = Cita::all();
+    return view('inmobiliaria', compact('usuario' ,'propiedades', 'agentes', 'citas'));
 })->name('inmobiliaria');
 
 /* -----------------------------
@@ -154,6 +156,12 @@ Route::get('/agentes', [AgenteController::class,  'agentes'])->name('agentes');
    Citas
 --------------------------------*/
 Route::post('/citas', [CitaController::class, 'store'])->name('citas.store');
+
+//Aceptar cita
+Route::post('/citas/{id}/aceptar', [CitaController::class, 'aceptar'])->name('citas.aceptar');
+//Rechazar cita
+Route::delete('citas/{id}/rechazar', [CitaController::class, 'rechazar'])->name('citas.rechazar');
+
 
 /* -----------------------------
    Prueba

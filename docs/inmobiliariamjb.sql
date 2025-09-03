@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 29-08-2025 a las 21:00:54
+-- Tiempo de generación: 03-09-2025 a las 12:51:26
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.4.1
 
@@ -36,17 +36,17 @@ CREATE TABLE `citas` (
   `correo` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
-  `propiedad_id` int(11) DEFAULT NULL
+  `propiedad_id` int(11) DEFAULT NULL,
+  `estado` varchar(20) DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `citas`
 --
 
-INSERT INTO `citas` (`idCita`, `nombre`, `correo`, `fecha`, `hora`, `propiedad_id`) VALUES
-(6, 'Fabian', 'fabi123@hotmail.com', '2025-08-30', '14:33:00', NULL),
-(7, 'Fabian', 'fabian123@gmail.com', '2025-08-30', '14:48:00', NULL),
-(8, 'Fabian', 'mabe2015@gmail.com', '2025-08-30', '01:44:00', NULL);
+INSERT INTO `citas` (`idCita`, `nombre`, `correo`, `fecha`, `hora`, `propiedad_id`, `estado`) VALUES
+(14, 'Maria', 'mariadb12@gmail.com', '2025-09-04', '10:30:00', 8, 'aceptada'),
+(15, 'Fabian', 'fabi123@hotmail.com', '2025-09-05', '16:33:00', 10, 'rechazada');
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ INSERT INTO `citas` (`idCita`, `nombre`, `correo`, `fecha`, `hora`, `propiedad_i
 
 CREATE TABLE `propiedades` (
   `idPropiedad` int(11) NOT NULL,
-  `titulo` varchar(20) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
   `ubicacion` varchar(100) NOT NULL,
   `precio` decimal(10,0) NOT NULL,
   `descripcion` varchar(255) NOT NULL,
@@ -70,8 +70,9 @@ CREATE TABLE `propiedades` (
 --
 
 INSERT INTO `propiedades` (`idPropiedad`, `titulo`, `ubicacion`, `precio`, `descripcion`, `imagen`, `disponible`, `estado`) VALUES
-(2, 'Terreno', 'Floresta', '500', '100metros', 'https://pics.nuroa.com/vendo_en_el_sur_de_quito_terreno_en_venta_en_quito_1500105699886211974.jpg', 1, 'disponible'),
-(3, 'propiedad', 'Barrio Av Gonsalez Suares', '500', 'Oportunidad', 'https://pics.nuroa.com/vendo_en_el_sur_de_quito_te...\r\n', 1, 'disponible');
+(8, 'Propiedad la carolina', 'Frente al parque la Carolina', '850000', '100 metros', 'propiedades/DVonRrVl1rYOLMMoej2MMursmjpBYCFUgeY2LPwZ.jpg', 1, 'disponible'),
+(9, 'Terreno Av. Bolivar', 'Barrio la Floresta', '250000', '580 metros', 'propiedades/XWhTbz9oAzS3BzlGLJPedczLHPxLGQF3VjIHcwbv.jpg', 1, 'disponible'),
+(10, 'Propiedad el valle', 'Barrio los chillos', '1000', '50 metros', 'propiedades/WvLHIIVaNaZWUWk0M8s29yEH0NNXZNI4e8xvUTo0.jpg', 1, 'disponible');
 
 -- --------------------------------------------------------
 
@@ -91,7 +92,7 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`RollId`, `RoleNombre`) VALUES
 (1, 'cliente'),
 (2, 'agente vendedor'),
-(3, 'propietario');
+(3, 'administrador');
 
 -- --------------------------------------------------------
 
@@ -124,7 +125,7 @@ INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellido`, `direccion`, `telefon
 (7, 'Carlos', 'Ledher', 'La Floresta', '0955147233', 'carlosledher@gmail.com', '$2y$10$aeEA1GCQKt7xilY7QED6qel6/nRDD00JBwByCBlU6SR.ITAz5KwsK', 2),
 (8, 'Fabian', 'Sailema', 'Barrio La floresta', '0988521478', 'fabi1990@hotmail.com', '$2y$10$mRk3wvWG3.f9kqIE2/Ww/OmJLwGGqtd1zQmz3wuLIBZ9q2OO2QMB6', 3),
 (9, 'Maria', 'Rodriguez', 'Las vervenitas', '0998521147', 'mabe2015@gmail.com', '$2y$10$WiubFm/Qml11sNjriM5RK.3GLSEofsFezqCZz27JA8lSiEeNArAJa', 3),
-(10, 'Joel', 'Brito', 'Barrio nuevos horizontes', '0987419089', 'pepedariojoel007@gmail.com', '$2y$10$Z5XtucwUh/J/ajERu1NiheQ.my408bBYH01fjW6WLm0BHTHETBoJS', 3),
+(10, 'Joel', 'Brito', 'Barrio nuevos horizontes', '0987419089', 'pepedariojoel007@gmail.com', '$2y$10$qonfK2T9s7Y7bPkUtH2rouNafhRArVZXcIS..GP0niZIgLOzOIhCy', 3),
 (11, 'Erick', 'Guaman', 'La Carolina', '0997168356', 'erickshitos46@gmail.com', '$2y$10$jQnfGyeZmeaEpIs7ZCzThu5CRT94sqdRib5LFZU3kg2e2gUnlM9pW', 2);
 
 --
@@ -165,13 +166,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `propiedades`
 --
 ALTER TABLE `propiedades`
-  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
