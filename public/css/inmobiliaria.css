@@ -1516,5 +1516,87 @@ body {
   }
 }
 
+.notification-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Badge contador */
+
+
+/* Dropdown estilo mini bandeja */
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+   .notification-wrapper .badge {
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+
+/* Cabecera */
+.notification-dropdown .dropdown-header {
+    padding: 10px;
+    background: #f5f5f5;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Cuerpo */
+.notification-dropdown .dropdown-body {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.notification-dropdown .empty {
+    color: #777;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* Pie */
+.notification-dropdown .dropdown-footer {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.notification-dropdown .dropdown-footer a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 13px;
+}
+
+.notification-dropdown .dropdown-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+
+
 
 

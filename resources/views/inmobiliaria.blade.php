@@ -26,14 +26,32 @@
                 <i class="fas fa-globe"></i>
                 Ver tienda
             </button>
-            <button class="header-btn">
-                <i class="fas fa-bell"></i>
-            </button>
-            <div class="dropdown">
-                <button class="dropdown-btn">
-                    Diseño
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+
+            <!--Boton notificaciones-->
+    <div class="notification-wrapper">
+    <!-- Campana -->
+    <a href="#" class="header-btn" id="notificationToggle">
+        <i class="fas fa-bell"></i>
+        <span class="badge">0</span>
+    </a>
+
+    <!-- Mini bandeja (vacía por ahora) -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="dropdown-header">Notificaciones</div>
+        <div class="dropdown-body">
+            <p class="empty">No hay notificaciones</p>
+        </div>
+        <div class="dropdown-footer">
+            <a href="#">Ver todas</a>
+        </div>
+    </div>
+</div>
+
+ <div class="dropdown">
+       <button class="dropdown-btn">
+            Diseño
+             <i class="fas fa-chevron-down"></i>
+             </button>
             </div>
             <div class="user-profile">
                 <div class="user-avatar">R</div>
@@ -600,7 +618,7 @@
     </div>
     <div class="section-header">
         <h1>
-            <i class="fas fa-blog"></i>
+            <i class="fas fa-home"></i>
             Propiedades y terrenos
         </h1>
         <p>Asignar propiedad</p>
@@ -1516,6 +1534,86 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 🔹 Dropdown del perfil
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById("dropdownMenu");
+            if (dropdownMenu) {
+                dropdownMenu.classList.toggle("show");
+            } else {
+                console.error("Elemento con ID 'dropdownMenu' no encontrado.");
+            }
+        }
+        window.toggleDropdown = toggleDropdown;
+
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        if (dropdownBtn) {
+            dropdownBtn.addEventListener('click', toggleDropdown);
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-btn') && !event.target.closest('.dropdown-menu')) {
+                const dropdowns = document.getElementsByClassName("dropdown-menu");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // 🔹 Dropdown de notificaciones (campana)
+        const toggleBtn = document.getElementById('notificationToggle');
+        const dropdown = document.getElementById('notificationDropdown');
+
+        if (toggleBtn && dropdown) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.notification-wrapper')) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    // 🔹 Función para cambiar entre secciones
+    function showSection(sectionName, clickedElement) {
+        event.preventDefault();
+
+        // Ocultar todas las secciones
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        // Mostrar la sección seleccionada
+        const targetSection = document.getElementById(sectionName + '-section');
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
+
+        // Actualizar el estado activo del sidebar
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Activar el elemento del sidebar correspondiente
+        const parentNavItem = clickedElement.closest('.nav-item');
+        if (parentNavItem) {
+            parentNavItem.classList.add('active');
+        }
+    }
+</script>
+
+
     <!-- Bootstrap JS (para que los modales funcionen) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
