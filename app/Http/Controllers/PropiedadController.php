@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 class PropiedadController extends Controller
 {
-    // Mostrar formulario y listado principal
+    // Mostrar listado principal
     public function index()
     {
-        $propiedades = Propiedad::all(); // Trae todas las propiedades
-        return view('inmobiliaria', compact('propiedades'));
+        $propiedades = Propiedad::all();
+        $reservadas = Propiedad::where('estado', 'reservada')->get();
+        return view('inmobiliaria', compact('propiedades', 'reservadas'));
+
     }
 
     // Guardar propiedad nueva
@@ -28,7 +30,6 @@ class PropiedadController extends Controller
 
         $disponible = ($request->estado === 'disponible') ? 1 : 0;
 
-        // Guardar imagen en storage/app/public/propiedades
         $imagenPath = $request->file('imagen')->store('propiedades', 'public');
 
         Propiedad::create([
@@ -67,7 +68,6 @@ class PropiedadController extends Controller
 
         $disponible = ($request->estado === 'disponible') ? 1 : 0;
 
-        // Actualizar imagen si se sube
         if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('propiedades', 'public');
             $propiedad->imagen = $imagenPath;
@@ -94,12 +94,10 @@ class PropiedadController extends Controller
         return redirect()->route('propiedades.index')->with('success', 'Propiedad eliminada correctamente');
     }
 
-    //Administrar propiedades (solo tabla para cargar via fetch)
-    
+    // Tabla para administrar propiedades
     public function administrar()
-   {
-    $propiedades = Propiedad::all();
-    return view('propiedades.tabla', compact('propiedades'));
-   }
-
+    {
+        $propiedades = Propiedad::all();
+        return view('propiedades.tabla', compact('propiedades'));
+    }
 }

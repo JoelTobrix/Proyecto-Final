@@ -3,16 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PropiedadController;       
-use App\Models\Propiedad;
 use App\Http\Controllers\AgenteController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\ConsultaController;
+use App\Models\Propiedad;
 use App\Models\Agente;
 use App\Models\Usuario;
 use App\Models\Cita;
+use App\Models\Consulta;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CodigoRecuperacionMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 /*
 Rutas de navegación
 */
@@ -41,11 +45,14 @@ Route::get('/inmobiliaria', function() {
     if (!session()->has('usuario')) {
         return redirect()->route('login')->withErrors('Debes iniciar sesión para acceder.');
     }
+
     $usuario = session('usuario');
     $propiedades = Propiedad::paginate(9);
     $agentes = Agente::where('rol_id', 3)->get();
-     $citas = Cita::all();
-    return view('inmobiliaria', compact('usuario' ,'propiedades', 'agentes', 'citas'));
+    $citas = Cita::with('propiedad')->get(); 
+    $consultas = Consulta::with(['propiedad', 'agente'])->get();
+
+    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas'));
 })->name('inmobiliaria');
 
 /* -----------------------------
@@ -55,7 +62,7 @@ Route::get('/forgot-password', function() {
     return view('forgot-password');
 })->name('password.request');
 
-Route::post('/forgot-password', function (\Illuminate\Http\Request $request) {
+Route::post('/forgot-password', function (Request $request) {
     $request->validate(['email' => 'required|email']);
 
     $usuario = Usuario::where('correo', $request->email)->first();
@@ -77,7 +84,7 @@ Route::get('/verificar-codigo', function() {
     return view('codigo-verificacion');
 })->name('codigo.verificacion');
 
-Route::post('/verificar-codigo', function (\Illuminate\Http\Request $request) {
+Route::post('/verificar-codigo', function (Request $request) {
     $request->validate(['codigo' => 'required|digits:6']);
 
     if ($request->codigo == session('codigo_recuperacion')) {
@@ -94,7 +101,7 @@ Route::get('/reset-password', function() {
     return view('reset-password');
 })->name('password.reset.form');
 
-Route::post('/reset-password', function (\Illuminate\Http\Request $request) {
+Route::post('/reset-password', function (Request $request) {
     $request->validate([
         'password' => 'required|confirmed|min:6'
     ]);
@@ -114,60 +121,6 @@ Route::post('/reset-password', function (\Illuminate\Http\Request $request) {
     }
 })->name('password.reset');
 
-
-// Ruta para enviar el token al correo
-Route::post('/enviar-token', function(Request $request) {
-    $correo = $request->correo;
-    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        return response()->json(['success' => false, 'message' => 'Correo inválido']);
-    }
-    $token = random_int(100000, 999999);
-    session(['registro_token' => $token, 'registro_correo' => $correo]);
-    Mail::to($correo)->send(new CodigoRecuperacionMail($token));
-    return response()->json(['success' => true]);
-});
-
-// Ruta para validar el token
-Route::post('/validar-token', function(Request $request) {
-    $correo = $request->correo;
-    $token = $request->token;
-    if (
-        session('registro_token') &&
-        session('registro_correo') == $correo &&
-        session('registro_token') == $token
-    ) {
-        return response()->json(['valido' => true]);
-    }
-    return response()->json(['valido' => false]);
-});
-
-
-// Ruta para enviar el token al correo
-Route::post('/enviar-token', function(Request $request) {
-    $correo = $request->correo;
-    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        return response()->json(['success' => false, 'message' => 'Correo inválido']);
-    }
-    $token = random_int(100000, 999999);
-    session(['registro_token' => $token, 'registro_correo' => $correo]);
-    Mail::to($correo)->send(new CodigoRecuperacionMail($token));
-    return response()->json(['success' => true]);
-});
-
-// Ruta para validar el token
-Route::post('/validar-token', function(Request $request) {
-    $correo = $request->correo;
-    $token = $request->token;
-    if (
-        session('registro_token') &&
-        session('registro_correo') == $correo &&
-        session('registro_token') == $token
-    ) {
-        return response()->json(['valido' => true]);
-    }
-    return response()->json(['valido' => false]);
-});
-
 /* -----------------------------
    Usuarios
 --------------------------------*/
@@ -180,7 +133,7 @@ Route::post('/register', [UsuarioController::class, 'registrar'])->name('usuario
 // Catálogo de propiedades
 Route::get('/catalogo', [PropiedadController::class, 'index'])->name('catalogo');
 
-// Mostrar listado de propiedades (nueva ruta)
+// Mostrar listado de propiedades
 Route::get('/propiedades', [PropiedadController::class, 'index'])->name('propiedades.index');
 
 // Formulario para asignar nueva propiedad
@@ -192,10 +145,10 @@ Route::post('/propiedades', [PropiedadController::class, 'store'])->name('propie
 // Mostrar listado de propiedades y terrenos
 Route::get('/propiedades/administrar', [PropiedadController::class, 'administrar'])->name('propiedades.administrar');
 
-// Editar propiedad en el formulario
+// Editar propiedad
 Route::get('/propiedades/{id}/editar', [PropiedadController::class, 'editar'])->name('propiedades.editar');
 
-// Actualizar propiedad (cambia el nombre de la ruta a 'update' para que coincida con el formulario)
+// Actualizar propiedad
 Route::put('/propiedades/{id}', [PropiedadController::class, 'actualizar'])->name('propiedades.update');
 
 // Eliminar propiedad
@@ -209,13 +162,26 @@ Route::get('/agentes', [AgenteController::class,  'agentes'])->name('agentes');
 /* -----------------------------
    Citas
 --------------------------------*/
+// Crear nueva cita
 Route::post('/citas', [CitaController::class, 'store'])->name('citas.store');
 
-//Aceptar cita
+// Aceptar cita
 Route::post('/citas/{id}/aceptar', [CitaController::class, 'aceptar'])->name('citas.aceptar');
-//Rechazar cita
-Route::delete('citas/{id}/rechazar', [CitaController::class, 'rechazar'])->name('citas.rechazar');
 
+// Rechazar cita
+Route::delete('/citas/{id}/rechazar', [CitaController::class, 'rechazar'])->name('citas.rechazar');
+
+// Listado de citas (opcional para administración)
+Route::get('/citas', [CitaController::class, 'index'])->name('citas.index');
+
+/* -----------------------------
+   Consultas
+--------------------------------*/
+Route::get('/consultas', [ConsultaController::class, 'index'])->name('consultas.index');
+Route::get('/consultas/{id}', [ConsultaController::class, 'show'])->name('consultas.show');
+Route::post('/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
+Route::post('/consultas/{id}/responder', [ConsultaController::class, 'responder'])->name('consultas.responder');
+Route::put('/consultas/{id}/cerrar', [ConsultaController::class, 'cerrar'])->name('consultas.cerrar');
 
 /* -----------------------------
    Prueba
@@ -227,8 +193,6 @@ Route::get('/page', function(){
 /*
 Conexion a la Base de Datos
 */
-use Illuminate\Support\Facades\DB;
-
 Route::get('/test-db', function () {
     try {
         DB::connection()->getPdo();

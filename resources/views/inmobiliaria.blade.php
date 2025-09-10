@@ -681,101 +681,244 @@
 
 
 
-            <!-- SECCIÓN GESTION DE PROPIEDADES -->    <!--Rol Agente vendedor y propietario-->
-                <div id="realestate-section" class="content-section">
-                <div class="breadcrumb">
-                    <i class="fas fa-home"></i>
-                    <span>Escritorio</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Real Estate</span>
-                </div>
-                <div class="section-header">
-                    <h1>
-                        <i class="fas fa-building"></i>
-                        Gestión de Propiedades
-                    </h1>
-                    <p>Administra todas las propiedades de tu inmobiliaria</p>
-                </div>
-
-                <!-- Lista propiedades -->
-                
-            </div>
-                <!--SECCION CONSULTAS-->   <!--Roles Agente vendedor y propietario-->
-                 <div id="consultas-section" class="content-section">
-                    <div class="breadcrumb">
-                    <i class="fas fa-home"></i>
-                    <span>Escritorio</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Real Estate</span>
-                    </div>
-                <div class="section-header">
-                    <h1>
-                        <i class="fas fa-comments"></i>
-                        Seccion de consultas
-                    </h1>
-                </div>
-                 <!-- Formulario de Consulta -->
-    <div class="formulario-consulta">
-        <h3><i class="fas fa-question-circle"></i> Realiza tu consulta</h3>
-        <form id="form-consulta">
-            <div class="form-group">
-                <label for="nombre-consulta">Nombre completo:</label>
-                <input type="text" id="nombre-consulta" name="nombre-consulta" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email-consulta">Correo electrónico:</label>
-                <input type="email" id="email-consulta" name="email-consulta" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="mensaje-consulta">Mensaje:</label>
-                <textarea id="mensaje-consulta" name="mensaje-consulta" rows="4" class="form-control" required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-paper-plane"></i> Enviar Consulta
-            </button>
-        </form>
+          <!--SECCION PROPIEDADES RESERVADAS-->
+<div id="realestate-section" class="content-section">
+    <div class="breadcrumb">
+        <i class="fas fa-home"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Propiedades Reservadas</span>
+    </div>
+    <div class="section-header">
+        <h1>
+            <i class="fas fa-building"></i>
+            Propiedades Reservadas
+        </h1>
+        <p>Administra todas las propiedades que han sido reservadas por clientes</p>
     </div>
 
-    <hr>
+    <!-- Lista propiedades reservadas -->
+    @if(isset($reservadas) && $reservadas->count() > 0)
+        <div class="propiedades-grid">
+            @foreach($reservadas as $prop)
+                <div class="propiedad-card">
+                    <img src="{{ asset('storage/' . $prop->imagen) }}" alt="{{ $prop->titulo }}">
+                    <h4>{{ $prop->titulo }}</h4>
+                    <p>Ubicación: {{ $prop->ubicacion }}</p>
+                    <p>Precio: ${{ number_format($prop->precio, 2) }}</p>
+                    <p>Estado: {{ ucfirst($prop->estado) }}</p>
+                </div>
+            @endforeach
+        </div>
+    @else
+        <p>No hay propiedades reservadas actualmente.</p>
+    @endif
+</div>
 
-    <!-- Formulario de Agendamiento -->
-    <div class="formulario-cita">
-        <h3><i class="fas fa-calendar-check"></i> Agendar Cita a Propiedad</h3>
-        <form id="form-cita">
-            <div class="form-group">
-                <label for="nombre-cita">Nombre completo:</label>
-                <input type="text" id="nombre-cita" name="nombre-cita" class="form-control" required>
+<!-- SECCION CONSULTAS -->
+<div id="consultas-section" class="content-section">
+    <div class="breadcrumb">
+        <i class="fas fa-home"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Consultas</span>
+    </div>
+
+    <div class="section-header">
+        <h1><i class="fas fa-comments"></i> Sección de consultas</h1>
+        <button id="btn-refrescar" class="btn btn-ver"><i class="fas fa-sync-alt"></i> Refrescar</button>
+    </div>
+
+    <!-- Formulario para nueva consulta -->
+    <div class="nuevo-consulta">
+        <h3>Crear nueva consulta</h3>
+        <input id="nuevo-nombre" placeholder="Nombre del cliente">
+        <input id="nuevo-email" placeholder="Correo electrónico">
+        <input id="nuevo-telefono" placeholder="Teléfono">
+
+        <select id="nuevo-propiedad">
+            <option value="">Selecciona una propiedad</option>
+            @foreach(\App\Models\Propiedad::all() as $prop)
+                <option value="{{ $prop->idPropiedad }}">{{ $prop->titulo }}</option>
+            @endforeach
+        </select>
+
+        <textarea id="nuevo-mensaje" rows="3" placeholder="Mensaje"></textarea>
+        <button onclick="crearConsulta()" class="btn btn-ver"><i class="fas fa-plus"></i> Crear Consulta</button>
+    </div>
+
+    <!-- Tabla de consultas -->
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Propiedad</th>
+                <th>Mensaje</th>
+                <th>Estado</th>
+                <th>Agente Asignado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="consultas-body">
+            <!-- Filas cargadas por JS -->
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div id="modal-consulta" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h4>Detalles de la Consulta <span id="modal-consulta-id"></span></h4>
             </div>
-
-            <div class="form-group">
-                <label for="telefono-cita">Teléfono:</label>
-                <input type="tel" id="telefono-cita" name="telefono-cita" class="form-control" required>
+            <div class="modal-body">
+                <p><strong>De:</strong> <span id="modal-nombre"></span> (<span id="modal-correo"></span>)</p>
+                <p><strong>Teléfono:</strong> <span id="modal-telefono"></span></p>
+                <p><strong>Propiedad:</strong> <span id="modal-propiedad"></span></p>
+                <hr>
+                <h4>Mensaje:</h4>
+                <p id="modal-mensaje"></p>
+                <hr>
+                <h4>Historial de Respuestas:</h4>
+                <div id="modal-respuestas"></div>
+                <hr>
+                <h4>Tu Respuesta:</h4>
+                <textarea id="modal-respuesta-texto" rows="4" placeholder="Escribe tu respuesta aquí..."></textarea>
             </div>
-
-            <div class="form-group">
-                <label for="propiedad-cita">Propiedad a visitar:</label>
-                <input type="text" id="propiedad-cita" name="propiedad-cita" class="form-control" required>
+            <div class="modal-footer">
+                <button id="btn-enviar-respuesta" class="btn btn-responder"><i class="fas fa-paper-plane"></i> Enviar Respuesta</button>
+                <button id="btn-cerrar-consulta" class="btn btn-cerrar"><i class="fas fa-times-circle"></i> Cerrar Consulta</button>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label for="fecha-cita">Fecha preferida:</label>
-                <input type="date" id="fecha-cita" name="fecha-cita" class="form-control" required>
-            </div>
+    <!-- JS dentro de la sección -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tbody = document.getElementById('consultas-body');
+        const modal = document.getElementById('modal-consulta');
+        const closeModal = document.querySelector('.close-btn');
+        const btnCerrar = document.getElementById('btn-cerrar-consulta');
+        let consultaActual = null;
 
-            <div class="form-group">
-                <label for="hora-cita">Hora preferida:</label>
-                <input type="time" id="hora-cita" name="hora-cita" class="form-control" required>
-            </div>
+        // Cargar todas las consultas
+        function cargarConsultas() {
+            fetch('/consultas')
+                .then(res => res.json())
+                .then(data => {
+                    tbody.innerHTML = '';
+                    data.forEach(c => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${c.nombre}</td>
+                            <td>${c.email}</td>
+                            <td>${c.telefono}</td>
+                            <td>${c.propiedad ? c.propiedad.titulo : 'Sin propiedad'}</td>
+                            <td>${c.mensaje}</td>
+                            <td>${c.estado}</td>
+                            <td>${c.agente ? c.agente.nombre + ' ' + c.agente.apellido : 'Sin asignar'}</td>
+                            <td><button class="btn btn-ver" onclick="verConsulta(${c.id})">Ver</button></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
 
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-calendar-plus"></i> Agendar Cita
-            </button>
-           </form>
-           </div>
-           </div>
+        // Ver detalle de consulta
+        window.verConsulta = function(id) {
+            fetch(`/consultas/${id}`)
+                .then(res => res.json())
+                .then(c => {
+                    consultaActual = c;
+                    modal.style.display = 'block';
+                    document.getElementById('modal-consulta-id').innerText = c.id;
+                    document.getElementById('modal-nombre').innerText = c.nombre;
+                    document.getElementById('modal-correo').innerText = c.email;
+                    document.getElementById('modal-telefono').innerText = c.telefono;
+                    document.getElementById('modal-propiedad').innerText = c.propiedad ? c.propiedad.titulo : 'Sin propiedad';
+                    document.getElementById('modal-mensaje').innerText = c.mensaje;
+
+                    const respuestasDiv = document.getElementById('modal-respuestas');
+                    respuestasDiv.innerHTML = '';
+                    c.respuestas.forEach(r => {
+                        const p = document.createElement('p');
+                        p.innerHTML = `<strong>${r.usuario.nombre}:</strong> ${r.mensaje}`;
+                        respuestasDiv.appendChild(p);
+                    });
+                });
+        }
+
+        // Enviar respuesta a consulta
+        document.getElementById('btn-enviar-respuesta').addEventListener('click', function() {
+            const mensaje = document.getElementById('modal-respuesta-texto').value;
+            if (!mensaje) return alert('Escribe un mensaje');
+
+            fetch(`/consultas/${consultaActual.id}/responder`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ mensaje })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Respuesta enviada');
+                    cargarConsultas();
+                    modal.style.display = 'none';
+                    document.getElementById('modal-respuesta-texto').value = '';
+                }
+            });
+        });
+
+        // Crear nueva consulta
+        window.crearConsulta = function() {
+            const nombre = document.getElementById('nuevo-nombre').value;
+            const email = document.getElementById('nuevo-email').value;
+            const telefono = document.getElementById('nuevo-telefono').value;
+            const propiedad_id = document.getElementById('nuevo-propiedad').value;
+            const mensaje = document.getElementById('nuevo-mensaje').value;
+
+            if(!nombre || !email || !telefono || !mensaje) {
+                return alert('Completa todos los campos obligatorios');
+            }
+
+            fetch('/consultas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ nombre, email, telefono, propiedad_id, mensaje })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Consulta creada correctamente');
+                    cargarConsultas();
+                    document.getElementById('nuevo-nombre').value = '';
+                    document.getElementById('nuevo-email').value = '';
+                    document.getElementById('nuevo-telefono').value = '';
+                    document.getElementById('nuevo-propiedad').value = '';
+                    document.getElementById('nuevo-mensaje').value = '';
+                }
+            });
+        }
+
+        closeModal.onclick = () => modal.style.display = 'none';
+        btnCerrar.onclick = () => modal.style.display = 'none';
+        document.getElementById('btn-refrescar').addEventListener('click', cargarConsultas);
+
+        cargarConsultas();
+    });
+    </script>
+</div>
+
+
+               
   <!-- SECCION CITAS PENDIENTES -->
 <div id="citas-section" class="content-section"> 
     <div class="breadcrumb mb-3">
@@ -1616,6 +1759,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Bootstrap JS (para que los modales funcionen) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>
