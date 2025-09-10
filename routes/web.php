@@ -51,8 +51,12 @@ Route::get('/inmobiliaria', function() {
     $agentes = Agente::where('rol_id', 3)->get();
     $citas = Cita::with('propiedad')->get(); 
     $consultas = Consulta::with(['propiedad', 'agente'])->get();
+    $reservadas = Propiedad::whereHas('citas', function($query){
+    $query->where('estado', 'aceptada');
+          })->with('citas')->get();
 
-    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas'));
+
+    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas', 'reservadas'));
 })->name('inmobiliaria');
 
 /* -----------------------------
@@ -153,6 +157,11 @@ Route::put('/propiedades/{id}', [PropiedadController::class, 'actualizar'])->nam
 
 // Eliminar propiedad
 Route::delete('/propiedades/{id}/eliminar', [PropiedadController::class, 'eliminar'])->name('propiedades.eliminar');
+
+// Propiedades reservadas
+Route::get('/propiedades/reservadas', [PropiedadController::class, 'reservadas'])
+     ->name('propiedades.reservadas');
+
 
 /* -----------------------------
    Agentes

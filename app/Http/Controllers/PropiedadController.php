@@ -100,4 +100,14 @@ class PropiedadController extends Controller
         $propiedades = Propiedad::all();
         return view('propiedades.tabla', compact('propiedades'));
     }
+    public function reservadas()
+{
+    // Propiedades con cita aceptada
+    $reservadas = Propiedad::whereHas('citas', function($query){
+        $query->where('estado', 'aceptada');
+    })->with('citas')->get(); // Incluye citas para poder mostrar info si quieres
+
+    return view('propiedades.reservadas', compact('reservadas'));
+}
+
 }
