@@ -715,6 +715,7 @@
     @endif
 </div>
 
+
 <!-- SECCION CONSULTAS -->
 <div id="consultas-section" class="content-section">
     <div class="breadcrumb">
@@ -915,6 +916,7 @@
         cargarConsultas();
     });
     </script>
+   
 </div>
 
 
