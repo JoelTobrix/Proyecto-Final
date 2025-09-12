@@ -7,6 +7,9 @@ use App\Models\Cita;
 use App\Models\Propiedad;
 use App\Models\Notificacion;
 use App\Models\Usuario;
+use App\Mail\ComprobanteCitaMailable;
+use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CitaController extends Controller
 {
@@ -44,28 +47,31 @@ class CitaController extends Controller
     }
 
     public function aceptar($id)
-    {
-        $cita = Cita::findOrFail($id);
-        $cita->estado = 'aceptada';
-        $cita->save();
+{
+    $cita = Cita::findOrFail($id);
+    $cita->estado = 'aceptada';
+    $cita->save();
 
-        // ✅ Marcar propiedad como reservada automáticamente
-        if($cita->propiedad) {
-            $cita->propiedad->estado = 'reservada';
-            $cita->propiedad->disponible = 0;
-            $cita->propiedad->save();
-        }
-
-        $usuario = Usuario::where('correo', $cita->correo)->first();
-        if ($usuario) {
-            Notificacion::create([
-                'usuario_id' => $usuario->idUsuario,
-                'mensaje' => "Tu cita para '{$cita->propiedad->titulo}' ha sido ACEPTADA",
-            ]);
-        }
-
-        return redirect()->back()->with('success', 'Cita aceptada y propiedad reservada.');
+    if($cita->propiedad) {
+        $cita->propiedad->estado = 'reservada';
+        $cita->propiedad->disponible = 0;
+        $cita->propiedad->save();
     }
+
+    $usuario = Usuario::where('correo', $cita->correo)->first();
+
+    if ($usuario) {
+        Notificacion::create([
+            'usuario_id' => $usuario->idUsuario,
+            'mensaje' => "Tu cita para '{$cita->propiedad->titulo}' ha sido ACEPTADA",
+        ]);
+
+        // Enviar correo con comprobante
+        Mail::to($usuario->correo)->send(new ComprobanteCitaMailable($cita));
+    }
+
+    return redirect()->back()->with('success', 'Cita aceptada, propiedad reservada y comprobante enviado al cliente.');
+}
 
     public function rechazar($id)
     {
@@ -83,4 +89,16 @@ class CitaController extends Controller
 
         return redirect()->back()->with('success', 'Cita rechazada.');
     }
+
+
+
+
+     //Generar comprobante
+   public function generarComprobante($id)
+{
+    $cita = Cita::with('propiedad')->findOrFail($id);
+    $pdf = Pdf::loadView('pdf.comprobante', compact('cita'));
+    return $pdf->download('Comprobante_Cita_'.$cita->idCita.'.pdf');
+}
+
 }

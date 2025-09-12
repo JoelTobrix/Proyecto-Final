@@ -10,7 +10,6 @@
 <body>
     <div class="container">
         <div class="left-section"></div>
-        
         <div class="right-section">
             <h2 class="form-title">CREAR CUENTA:</h2>
 
@@ -51,22 +50,11 @@
                     <label for="telefono">Teléfono *</label>
                     <input type="tel" id="telefono" name="telefono" value="{{ old('telefono') }}" required>
                 </div>
-<div class="form-group">
-    <label for="correo">Correo Electrónico *</label>
-    <input type="email" id="correo" name="correo" value="{{ old('correo') }}" required>
-    <span id="correoMensaje"
-        style="color: green; {{ session('registro_token') && session('registro_correo') == old('correo') ? '' : 'display: none;' }}">
-        Se envió un token a tu correo. Ingresa el token abajo.
-    </span>
-</div>
 
-<div class="form-group" id="tokenGroup"
-    style="{{ session('registro_token') && session('registro_correo') == old('correo') ? '' : 'display: none;' }}">
-    <label for="correo_token">Token recibido en tu correo *</label>
-    <input type="text" id="correo_token" name="correo_token"
-        value="{{ old('correo_token') ?? '' }}" required>
-    <span id="tokenError" style="color: red; display: none;">Token incorrecto.</span>
-</div>
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico *</label>
+                    <input type="email" id="correo" name="correo" value="{{ old('correo') }}" required>
+                </div>
 
                 <div class="form-group">
                     <label for="password">Contraseña *</label>
@@ -82,11 +70,13 @@
                     <label for="rol_id">Seleccionar Rol *</label>
                     <select id="rol_id" name="rol_id" required>
                         <option value="">Seleccione su rol</option>
-                        @foreach($roles as $rol)
-                            <option value="{{ $rol->RollId }}" {{ old('rol_id') == $rol->RollId ? 'selected' : '' }}>
-                                {{ $rol->RoleNombre }}
-                            </option>
-                        @endforeach
+                        @if(isset($roles) && count($roles) > 0)
+                            @foreach($roles as $rol)
+                                <option value="{{ $rol->RollId }}" {{ old('rol_id') == $rol->RollId ? 'selected' : '' }}>
+                                    {{ $rol->RoleNombre }}
+                                </option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
 
@@ -102,80 +92,15 @@
 
                 <div class="button-group">
                     <button type="submit" class="btn btn-primary">Registrarse</button>
-                    <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('registrationForm').reset();">Limpiar</button>
                 </div>
             </form>
 
             <div class="login-link">
-                <a href="{{route('login')}}" onclick="irALogin()">¿Ya tienes cuenta? Iniciar sesión</a>
+                <a href="{{route('login')}}">¿Ya tienes cuenta? Iniciar sesión</a>
             </div>
         </div>
     </div>
-<script>
-    // Solo ejecuta el fetch si el token no ha sido enviado antes
-    document.getElementById('correo').addEventListener('blur', function() {
-        const correo = this.value;
-        // Evita enviar el token si ya está en sesión y el correo coincide
-        @if(session('registro_token') && session('registro_correo') == old('correo'))
-            return;
-        @endif
-        if (correo) {
-            fetch('/enviar-token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ correo })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('correoMensaje').style.display = 'inline';
-                    document.getElementById('tokenGroup').style.display = 'block';
-                }
-            });
-        }
-    });
-
-    document.getElementById('registrationForm').addEventListener('submit', function(e) {
-        const token = document.getElementById('correo_token').value;
-        const correo = document.getElementById('correo').value;
-        let valido = false;
-
-        // Validar token antes de enviar el formulario
-        if (token && correo) {
-            e.preventDefault();
-            fetch('/validar-token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ correo, token })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.valido) {
-                    valido = true;
-                    document.getElementById('tokenError').style.display = 'none';
-                    this.submit();
-                } else {
-                    document.getElementById('tokenError').style.display = 'inline';
-                }
-            });
-        }
-    });
-</script>
-
-    <script>
-        function limpiarFormulario() {
-            document.getElementById('registrationForm').reset();
-        }
-        function irALogin() {
-            window.location.href = "/login";
-        }
-    </script>
-
 </body>
 </html>
+

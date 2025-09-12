@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 /*
 Rutas de navegación
 */
@@ -198,6 +199,17 @@ Route::put('/consultas/{id}/cerrar', [ConsultaController::class, 'cerrar'])->nam
 Route::get('/page', function(){
     return view('options.pagina');
 })->name('pagina');
+
+/* -----------------------------
+   Ruta para generar comprobante
+--------------------------------*/
+Route::get('citas/{id}/comprobante', [CitaController::class, 'generarComprobante'])->name('citas.comprobante');
+
+/* -----------------------------
+   Tokens
+--------------------------------*/
+Route::post('/enviar-token', [RegistroController::class, 'enviarToken']);
+Route::post('/validar-token', [RegistroController::class, 'validarToken']);
 
 /*
 Conexion a la Base de Datos
