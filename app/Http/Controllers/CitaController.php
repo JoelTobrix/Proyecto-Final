@@ -8,6 +8,7 @@ use App\Models\Propiedad;
 use App\Models\Notificacion;
 use App\Models\Usuario;
 use App\Mail\ComprobanteCitaMailable;
+use App\Mail\ComprobanteRechazoMailable;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -75,21 +76,24 @@ class CitaController extends Controller
 
     public function rechazar($id)
     {
-        $cita = Cita::findOrFail($id);
-        $cita->estado = 'rechazada';
-        $cita->save();
+         $cita = Cita::findOrFail($id);
+    $cita->estado = 'rechazada';
+    $cita->save();
 
-        $usuario = Usuario::where('correo', $cita->correo)->first();
-        if ($usuario) {
-            Notificacion::create([
-                'usuario_id' => $usuario->idUsuario,
-                'mensaje' => "Tu cita para '{$cita->propiedad->titulo}' ha sido RECHAZADA",
-            ]);
-        }
+    $usuario = Usuario::where('correo', $cita->correo)->first();
 
-        return redirect()->back()->with('success', 'Cita rechazada.');
+    if ($usuario) {
+        Notificacion::create([
+            'usuario_id' => $usuario->idUsuario,
+            'mensaje' => "Tu cita para '{$cita->propiedad->titulo}' ha sido RECHAZADA",
+        ]);
+
+        // Enviar comprobante PDF de rechazo
+        Mail::to($usuario->correo)->send(new ComprobanteRechazoMailable($cita));
     }
 
+    return redirect()->back()->with('success', 'Cita rechazada y comprobante enviado al cliente.');
+}
 
 
 
@@ -100,5 +104,6 @@ class CitaController extends Controller
     $pdf = Pdf::loadView('pdf.comprobante', compact('cita'));
     return $pdf->download('Comprobante_Cita_'.$cita->idCita.'.pdf');
 }
+
 
 }

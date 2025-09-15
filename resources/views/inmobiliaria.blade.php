@@ -87,6 +87,17 @@
                             <span>Páginas</span>
                         </a>
                     </li> @endif
+
+                    @if(in_array($usuario->rol_id, [1]))
+                    <li class="nav-item" id="quienes-nav">
+                      <a href="#" class="nav-link" onclick="showSection('quienes', this)">
+                           <i class="fas fa-users"></i>
+                              <span>¿Quienes Somos?</span>
+                        </a>
+                    </li> @endif
+
+
+
                     @if(in_array($usuario->rol_id, [3]))
                     <li class="nav-item" id="blog-nav">
                         <a href="#" class="nav-link" onclick="showSection('blog', this)">
@@ -585,6 +596,87 @@
                     </button>
                 </div>
             </div>
+
+             <!-- SECCIÓN ¿Quienes Somos? -->
+              <div id="quienes-section" class="content-section">
+                <div class="breadcrumb">
+                    <i class="fas fa-users"></i>
+                        <span>Escritorio</span>  
+                        <i class="fas fa-chevron-right"></i>
+                    <span>¿Quienes Somos?</span>
+                </div>
+                 <div class="section-header">
+                    <h1>
+                        <i class="fas fa-users"></i>
+                        Inmobiliaria MJB
+                    </h1>
+                    <p>¿Quienes Somos?</p>
+                </div>
+                <!-- Encabezado -->
+    <div class="section-header">
+        <h1>
+            <i class="fas fa-users"></i>
+            Inmobiliaria MJB Quito
+        </h1>
+        <p>Conectamos personas con sus futuros hogares</p>
+    </div>
+
+    <!-- Carrusel de imágenes -->
+    <div id="carouselQuienes" class="carousel slide mb-4" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/inmobiliaria1.jpg" class="d-block w-100" alt="Oficinas">
+            </div>
+            <div class="carousel-item">
+                <img src="img/inmobiliaria2.jpg" class="d-block w-100" alt="Agentes">
+            </div>
+            <div class="carousel-item">
+                <img src="img/inmobiliaria3.jpg" class="d-block w-100" alt="Clientes felices">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselQuienes" role="button" data-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next" href="#carouselQuienes" role="button" data-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <!-- Texto descriptivo -->
+    <div class="about-text mb-4">
+        <h2>Misión</h2>
+        <p>Brindar a nuestros clientes las mejores oportunidades inmobiliarias, con transparencia, confianza y acompañamiento personalizado.</p>
+
+        <h2>Visión</h2>
+        <p>Ser la inmobiliaria líder en Quito, reconocida por la excelencia en el servicio y la innovación tecnológica en el sector.</p>
+    </div>
+
+    <!-- Grid de valores -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow text-center p-3">
+                <i class="fas fa-handshake fa-3x mb-3 text-primary"></i>
+                <h3>Confianza</h3>
+                <p>Construimos relaciones duraderas con clientes y socios basadas en la honestidad.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow text-center p-3">
+                <i class="fas fa-lightbulb fa-3x mb-3 text-warning"></i>
+                <h3>Innovación</h3>
+                <p>Usamos tecnología para optimizar la experiencia en la compra y venta de inmuebles.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow text-center p-3">
+                <i class="fas fa-users fa-3x mb-3 text-success"></i>
+                <h3>Compromiso</h3>
+                <p>Nuestro equipo acompaña a cada cliente en cada paso del proceso inmobiliario.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- SECCIÓN AGENTES VENDEDORES(Ejemplo adicional) -->
             <div id="blog-section" class="content-section">
@@ -1420,6 +1512,8 @@
                 padding: 1.5rem;
             }
         }
+
+        
 </style>
 
 
