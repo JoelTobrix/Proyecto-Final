@@ -618,7 +618,7 @@
             <i class="fas fa-users"></i>
             Inmobiliaria MJB Quito
         </h1>
-        <p>Conectamos personas con sus futuros hogares</p>
+        <p>Conectamos a personas con sus futuros hogares.</p>
     </div>
 
     <!-- Carrusel de imágenes -->
