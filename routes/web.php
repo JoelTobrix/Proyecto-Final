@@ -126,6 +126,27 @@ Route::post('/reset-password', function (Request $request) {
     }
 })->name('password.reset');
 
+
+/* -----------------------------
+   Routes buttons edit and view
+--------------------------------*/
+//Route::get('propiedades/busqueda', function(){
+   // return view('propiedades.busqueda');
+   // })->name('propiedades.busqueda');
+
+//Edit propiety
+//Route::get('propiedades/{id}/editar', function($id){
+   // return view('propiedades.editar' ,compact('id'));
+//})->name('propiedades.editar');
+
+//View Detail
+//Route::get('/propiedades/{id}/ver', [PropiedadController::class, 'show'])->name('propiedades.ver');
+
+
+
+
+
+
 /* -----------------------------
    Usuarios
 --------------------------------*/
@@ -163,7 +184,9 @@ Route::delete('/propiedades/{id}/eliminar', [PropiedadController::class, 'elimin
 Route::get('/propiedades/reservadas', [PropiedadController::class, 'reservadas'])
      ->name('propiedades.reservadas');
 
-
+//Mostrar propiedades al publico
+Route::get('/propiedades/ver', [PropiedadController::class, 'ver'])->name('propiedades.ver');
+Route::get('/propiedades/busqueda', [PropiedadController::class, 'busqueda'])->name('propiedades.busqueda'); 
 /* -----------------------------
    Agentes
 --------------------------------*/

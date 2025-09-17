@@ -93,7 +93,7 @@ public function eliminar($id)
     $prop = Propiedad::findOrFail($id);
     $prop->delete();
 
-    // 👇 Igual, redirigir al CRUD
+    //  redirigir al CRUD
     return redirect()->route('propiedades.administrar')
                      ->with('success', 'Propiedad eliminada correctamente');
 }
@@ -114,6 +114,47 @@ public function eliminar($id)
 
     return view('propiedades.reservadas', compact('reservadas'));
 }
+    public function ver()
+    {
+      $propiedades = Propiedad::all();
+      return view('propiedades.ver', compact('propiedades'));
+    }
 
 
+
+    public function busqueda(Request $request)
+    {
+          $query = Propiedad::query();
+
+    // Filtrar por título
+    if ($request->filled('titulo')) {
+        $query->where('titulo', 'like', '%' . $request->titulo . '%');
+    }
+
+    // Filtrar por ubicación
+    if ($request->filled('ubicacion')) {
+        $query->where('ubicacion', 'like', '%' . $request->ubicacion . '%');
+    }
+
+    // Filtrar por precio mínimo
+    if ($request->filled('precio_min')) {
+        $query->where('precio', '>=', $request->precio_min);
+    }
+
+    // Filtrar por precio máximo
+    if ($request->filled('precio_max')) {
+        $query->where('precio', '<=', $request->precio_max);
+    }
+
+    // Filtrar por estado (disponible o reservada)
+    if ($request->filled('estado')) {
+        $query->where('estado', $request->estado);
+    }
+
+    $propiedades = $query->get();
+
+    return view('propiedades.busqueda', compact('propiedades'));
+    }
 }
+
+

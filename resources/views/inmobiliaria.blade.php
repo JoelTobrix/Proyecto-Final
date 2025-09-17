@@ -320,14 +320,10 @@
                             </div>
                         </div>
                         <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
+                            <a href="{{route('propiedades.busqueda')}}"  class="btn btn-view">
+                            <i class="fas fa-external-link-alt"></i>
+                        Ver
+                         </a>  
                         </div>
                     </div>
 
@@ -347,16 +343,13 @@
                                 <span class="status active">Activa</span>
                             </div>
                         </div>
-                        <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
-                        </div>
+                       <div class="page-actions">
+                       <a href="{{ route('propiedades.ver') }}" class="btn btn-view">
+                      <i class="fas fa-external-link-alt"></i>
+                        Ver
+                         </a>
+                    </div>
+
                     </div>
 
                     <!-- Detalle de Propiedad -->
