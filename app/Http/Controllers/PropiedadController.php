@@ -42,7 +42,7 @@ class PropiedadController extends Controller
             'disponible' => $disponible
         ]);
 
-        return redirect()->back()->with('success', 'Propiedad creada correctamente');
+        return redirect()->back()->with('success', '');
     }
 
     // Editar propiedad
@@ -52,47 +52,52 @@ class PropiedadController extends Controller
         return view('propiedades.editar', compact('propiedad'));
     }
 
-    // Actualizar propiedad
-    public function actualizar(Request $request, $id)
-    {
-        $propiedad = Propiedad::findOrFail($id);
+   // Actualizar propiedad
+public function actualizar(Request $request, $id)
+{
+    $propiedad = Propiedad::findOrFail($id);
 
-        $request->validate([
-            'titulo' => 'required|string|max:255',
-            'ubicacion' => 'required|string|max:255',
-            'precio' => 'required|numeric',
-            'descripcion' => 'required|string|max:255',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'estado' => 'required|string|in:disponible,reservada',
-        ]);
+    $request->validate([
+        'titulo' => 'required|string|max:255',
+        'ubicacion' => 'required|string|max:255',
+        'precio' => 'required|numeric',
+        'descripcion' => 'required|string|max:255',
+        'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'estado' => 'required|string|in:disponible,reservada',
+    ]);
 
-        $disponible = ($request->estado === 'disponible') ? 1 : 0;
+    $disponible = ($request->estado === 'disponible') ? 1 : 0;
 
-        if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('propiedades', 'public');
-            $propiedad->imagen = $imagenPath;
-        }
-
-        $propiedad->update([
-            'titulo' => $request->titulo,
-            'ubicacion' => $request->ubicacion,
-            'precio' => $request->precio,
-            'descripcion' => $request->descripcion,
-            'estado' => $request->estado,
-            'disponible' => $disponible
-        ]);
-
-        return redirect()->route('propiedades.index')->with('success', 'Propiedad actualizada correctamente');
+    if ($request->hasFile('imagen')) {
+        $imagenPath = $request->file('imagen')->store('propiedades', 'public');
+        $propiedad->imagen = $imagenPath;
     }
 
-    // Eliminar propiedad
-    public function eliminar($id)
-    {
-        $prop = Propiedad::findOrFail($id);
-        $prop->delete();
+    $propiedad->update([
+        'titulo' => $request->titulo,
+        'ubicacion' => $request->ubicacion,
+        'precio' => $request->precio,
+        'descripcion' => $request->descripcion,
+        'estado' => $request->estado,
+        'disponible' => $disponible
+    ]);
 
-        return redirect()->route('propiedades.index')->with('success', 'Propiedad eliminada correctamente');
-    }
+    // 👇 Redirigimos al CRUD en vez de al index
+    return redirect()->route('propiedades.administrar')
+                     ->with('success', 'Propiedad actualizada correctamente');
+}
+
+// Eliminar propiedad
+public function eliminar($id)
+{
+    $prop = Propiedad::findOrFail($id);
+    $prop->delete();
+
+    // 👇 Igual, redirigir al CRUD
+    return redirect()->route('propiedades.administrar')
+                     ->with('success', 'Propiedad eliminada correctamente');
+}
+
 
     // Tabla para administrar propiedades
     public function administrar()
@@ -109,5 +114,6 @@ class PropiedadController extends Controller
 
     return view('propiedades.reservadas', compact('reservadas'));
 }
+
 
 }

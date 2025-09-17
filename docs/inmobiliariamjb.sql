@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-09-2025 a las 07:51:48
+-- Tiempo de generación: 17-09-2025 a las 00:00:58
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.4.1
 
@@ -46,11 +46,11 @@ CREATE TABLE `citas` (
 
 INSERT INTO `citas` (`idCita`, `nombre`, `correo`, `fecha`, `hora`, `propiedad_id`, `estado`) VALUES
 (14, 'Maria', 'mariadb12@gmail.com', '2025-09-04', '10:30:00', 8, 'aceptada'),
-(15, 'Fabian', 'fabi123@hotmail.com', '2025-09-05', '16:33:00', 10, 'aceptada'),
-(16, 'Fabian', 'fabi123@hotmail.com', '2025-09-20', '02:33:00', 10, 'pendiente'),
 (17, 'Fabian', 'pepedariojoel007@gmail.com', '2025-09-17', '02:42:00', 8, 'rechazada'),
-(18, 'Fabian', 'fabi123@hotmail.com', '2025-09-06', '03:52:00', 11, 'rechazada'),
-(19, 'Elena', 'elena1990@gotmail.es', '2025-09-09', '10:28:00', 12, 'rechazada');
+(20, 'Maria', 'mariadb12@gmail.com', '2025-09-11', '12:43:00', 14, 'aceptada'),
+(21, 'Romel', 'dariobarrionuevo49@gmail.com', '2025-09-15', '15:30:00', 13, 'aceptada'),
+(24, 'Dario', 'dariobarrionuevo49@gmail.com', '2025-09-17', '04:13:00', 14, 'aceptada'),
+(25, 'Fabricio', 'fabi123@hotmail.com', '2025-09-18', '04:20:00', 16, 'aceptada');
 
 -- --------------------------------------------------------
 
@@ -70,6 +70,13 @@ CREATE TABLE `consultas` (
   `estado` enum('pendiente','asignada','respondida','cerrada') DEFAULT 'pendiente',
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `consultas`
+--
+
+INSERT INTO `consultas` (`id`, `cliente_id`, `agente_id`, `propiedad_id`, `nombre`, `email`, `telefono`, `mensaje`, `estado`, `fecha_creacion`) VALUES
+(5, 4, 12, 13, 'Carlos', 'carlosledher@gmail.com', '0985223145', 'Info almacenada', 'pendiente', '2025-09-10 14:02:41');
 
 -- --------------------------------------------------------
 
@@ -96,7 +103,67 @@ INSERT INTO `notificaciones` (`id`, `usuario_id`, `mensaje`, `leida`, `created_a
 (4, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido ACEPTADA', 0, '2025-09-08 13:26:35'),
 (5, 12, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-08 14:08:37'),
 (6, 3, 'Tu cita para \'Terreno diagonal al paso lateral\' ha sido RECHAZADA', 0, '2025-09-08 14:08:42'),
-(7, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido RECHAZADA', 0, '2025-09-08 14:08:45');
+(7, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido RECHAZADA', 0, '2025-09-08 14:08:45'),
+(8, 1, 'Tu cita para \'Propiedad el valle\' ha sido ACEPTADA', 0, '2025-09-10 16:31:02'),
+(9, 12, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-10 17:23:55'),
+(10, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido ACEPTADA', 0, '2025-09-10 17:25:14'),
+(11, 3, 'Tu cita para \'Terreno diagonal al paso lateral\' ha sido ACEPTADA', 0, '2025-09-10 17:25:20'),
+(12, 2, 'Tu cita para \'Suite\' ha sido ACEPTADA', 0, '2025-09-10 17:43:55'),
+(13, 2, 'Tu cita para \'Suite\' ha sido RECHAZADA', 0, '2025-09-10 17:44:19'),
+(14, 2, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-12 13:18:46'),
+(15, 1, 'Tu cita para \'Propiedad el valle\' ha sido RECHAZADA', 0, '2025-09-12 13:18:49'),
+(16, 1, 'Tu cita para \'Propiedad el valle\' ha sido RECHAZADA', 0, '2025-09-12 13:18:54'),
+(17, 1, 'Tu cita para \'Propiedad el valle\' ha sido RECHAZADA', 0, '2025-09-12 13:18:58'),
+(18, 12, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-12 13:19:01'),
+(19, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido RECHAZADA', 0, '2025-09-12 13:19:04'),
+(20, 2, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-12 13:19:25'),
+(21, 1, 'Tu cita para \'Propiedad el valle\' ha sido ACEPTADA', 0, '2025-09-12 13:19:30'),
+(22, 1, 'Tu cita para \'Propiedad el valle\' ha sido ACEPTADA', 0, '2025-09-12 13:19:32'),
+(23, 12, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-12 13:19:37'),
+(24, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido ACEPTADA', 0, '2025-09-12 13:19:41'),
+(25, 2, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-12 15:00:20'),
+(26, 2, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-12 15:00:23'),
+(27, 2, 'Tu cita para \'Suite\' ha sido ACEPTADA', 0, '2025-09-12 15:00:45'),
+(28, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 16:36:03'),
+(29, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 16:39:16'),
+(30, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 16:39:24'),
+(31, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 16:39:50'),
+(32, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 16:40:30'),
+(33, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 16:41:36'),
+(34, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 17:13:32'),
+(35, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 17:13:36'),
+(36, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 17:15:37'),
+(37, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 17:17:00'),
+(38, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 17:17:18'),
+(39, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 17:19:05'),
+(40, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 17:19:10'),
+(41, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-12 17:20:51'),
+(42, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-12 17:21:01'),
+(43, 2, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-15 12:46:14'),
+(44, 1, 'Tu cita para \'Propiedad el valle\' ha sido RECHAZADA', 0, '2025-09-15 12:46:19'),
+(45, 12, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-15 12:46:25'),
+(46, 12, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-15 12:46:29'),
+(47, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 12:46:36'),
+(48, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-15 13:01:09'),
+(49, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:05:51'),
+(50, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:06:52'),
+(51, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:07:53'),
+(52, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:16:14'),
+(53, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:17:41'),
+(54, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:18:12'),
+(55, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 13:36:33'),
+(56, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-15 13:37:19'),
+(57, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-15 15:01:25'),
+(58, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido ACEPTADA', 0, '2025-09-15 15:02:34'),
+(59, 1, 'Tu cita para \'Propiedad el valle\' ha sido RECHAZADA', 0, '2025-09-15 17:17:22'),
+(60, 1, 'Tu cita para \'Terreno ubicado en la floresta\' ha sido RECHAZADA', 0, '2025-09-15 17:17:34'),
+(61, 18, 'Tu cita para \'Suite\' ha sido ACEPTADA', 0, '2025-09-17 03:05:58'),
+(62, 18, 'Tu cita para \'Suite\' ha sido RECHAZADA', 0, '2025-09-17 03:07:08'),
+(63, 18, 'Tu cita para \'Suite\' ha sido ACEPTADA', 0, '2025-09-17 03:09:44'),
+(64, 18, 'Tu cita para \'Suite\' ha sido RECHAZADA', 0, '2025-09-17 04:09:11'),
+(65, 18, 'Tu cita para \'Suite\' ha sido ACEPTADA', 0, '2025-09-17 04:09:18'),
+(66, 1, 'Tu cita para \'Departamento suite\' ha sido ACEPTADA', 0, '2025-09-17 04:15:39'),
+(67, 2, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-17 04:16:40');
 
 -- --------------------------------------------------------
 
@@ -120,12 +187,14 @@ CREATE TABLE `propiedades` (
 --
 
 INSERT INTO `propiedades` (`idPropiedad`, `titulo`, `ubicacion`, `precio`, `descripcion`, `imagen`, `disponible`, `estado`) VALUES
-(8, 'Propiedad la carolina', 'Frente al parque la Carolina', '850000', '100 metros', 'propiedades/DVonRrVl1rYOLMMoej2MMursmjpBYCFUgeY2LPwZ.jpg', 1, 'disponible'),
-(9, 'Terreno Av. Bolivar', 'Barrio la Floresta', '250000', '580 metros', 'propiedades/XWhTbz9oAzS3BzlGLJPedczLHPxLGQF3VjIHcwbv.jpg', 1, 'disponible'),
-(10, 'Propiedad el valle', 'Barrio los chillos', '1000', '50 metros', 'propiedades/WvLHIIVaNaZWUWk0M8s29yEH0NNXZNI4e8xvUTo0.jpg', 1, 'disponible'),
-(11, 'Terreno ubicado en la floresta', 'Barrio la Floresta', '55320', '900 metros', 'propiedades/xAnWjeb7BQH1hnKCdFeRt7BYDjykMrpBnECmZKEI.jpg', 1, 'disponible'),
-(12, 'Terreno diagonal al paso lateral', 'Barrio Ficoa', '156000', '850 metros', 'propiedades/DQlPd9XHRPanbJ2k9D6rGxi7r64QvV6qPuIXRXNz.jpg', 1, 'disponible'),
-(13, 'Departamento Quitumbe', 'Quitumbe centro', '250000', '10 metros', 'propiedades/cTDZvJfrE6r6bRnGyIKNtz9nWnauqmjmxkHYcyQv.jpg', 1, 'disponible');
+(8, 'Propiedad la carolina', 'Frente al parque la Carolina', '850000', '100 metros', 'propiedades/DVonRrVl1rYOLMMoej2MMursmjpBYCFUgeY2LPwZ.jpg', 0, 'reservada'),
+(13, 'Departamento Quitumbe', 'Quitumbe centro', '250000', '10 metros', 'propiedades/cTDZvJfrE6r6bRnGyIKNtz9nWnauqmjmxkHYcyQv.jpg', 0, 'reservada'),
+(14, 'Suite', 'Barrio Jardines del Este', '45025', 'Totalmente nueva 50 metros cuadrados', 'propiedades/UdO20KO7sLxs0XTkvNrJrgIj5eqccA5c2KLOoKE2.jpg', 0, 'reservada'),
+(16, 'Departamento suite', 'Residencia nuevos horizontes', '18000', '50 metros de largo y ancho', 'propiedades/P6jLqnNIqKphDWVnsZOMfRntPGqgbolcgKgRCvKK.jpg', 0, 'reservada'),
+(18, 'Terreno Calderon', 'Av. Abdon Calderon', '10000', '200 metros cuadrados', 'propiedades/E3PGgqSTl1gTIkq59U3YHV3xm8UTh3VYhpo2NwbJ.jpg', 1, 'disponible'),
+(19, 'Terreno ubicado en Cumbaya', 'Via a Cumbaya', '1500', '50 metros cuadrados', 'propiedades/4hbrXv4yNSNs8oxHQNC91OQdFjTPWEe9k7nj57cc.jpg', 1, 'disponible'),
+(20, 'Ciudad futura Quitumbe sur', 'Quitumbe sur', '62000', '537 metros cuadrados', 'propiedades/D2kRvY9DM9r9A6HnAVrWQegh1KZRUQWwFpeIiTI2.jpg', 1, 'disponible'),
+(21, 'Terreno Quitumbe norte', 'Quitumbe', '25000', '50 metros cuadrados', 'propiedades/xz9i5XwUnWWQtWSHpnjAmg90LL7Vjhkhu9wgkqWg.png', 1, 'disponible');
 
 -- --------------------------------------------------------
 
@@ -193,7 +262,8 @@ INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellido`, `direccion`, `telefon
 (8, 'Fabian', 'Sailema', 'Barrio La floresta', '0988521478', 'fabi1990@hotmail.com', '$2y$10$mRk3wvWG3.f9kqIE2/Ww/OmJLwGGqtd1zQmz3wuLIBZ9q2OO2QMB6', 3),
 (9, 'Maria', 'Rodriguez', 'Las vervenitas', '0998521147', 'mabe2015@gmail.com', '$2y$10$WiubFm/Qml11sNjriM5RK.3GLSEofsFezqCZz27JA8lSiEeNArAJa', 3),
 (11, 'Erick', 'Guaman', 'La Carolina', '0997168356', 'erickshitos46@gmail.com', '$2y$10$jQnfGyeZmeaEpIs7ZCzThu5CRT94sqdRib5LFZU3kg2e2gUnlM9pW', 2),
-(12, 'Joel', 'Brito', 'Barrio la merced', '0987419089', 'pepedariojoel007@gmail.com', '$2y$10$ZFeGxV1zzuSMW.auyx11NOMRlwUacJ2071MZAKiaLj.37Yd7qOsrq', 3);
+(12, 'Joel', 'Brito', 'Barrio la merced', '0987419089', 'pepedariojoel007@gmail.com', '$2y$10$uIc/.p0I7cjp89XYrDJZku0P5lJjHpy9RWtLSZ8eVX5uR5N13eXI6', 3),
+(18, 'Romel', 'Brito', 'la merced', '0988521336', 'dariobarrionuevo49@gmail.com', '$2y$10$8ieT7tqa2hDbW67pNhBVE.B1okSqJQEMM5sSyIXyD7RkSvNSPoSiW', 1);
 
 --
 -- Índices para tablas volcadas
@@ -257,25 +327,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `consultas`
 --
 ALTER TABLE `consultas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `propiedades`
 --
 ALTER TABLE `propiedades`
-  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas_consultas`
@@ -293,7 +363,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas

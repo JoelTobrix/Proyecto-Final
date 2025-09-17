@@ -184,6 +184,9 @@ Route::delete('/citas/{id}/rechazar', [CitaController::class, 'rechazar'])->name
 // Listado de citas (opcional para administración)
 Route::get('/citas', [CitaController::class, 'index'])->name('citas.index');
 
+//Cita index2 
+//Route::get('/inmobiliaria', [CitaController::class, 'index2']);
+
 /* -----------------------------
    Consultas
 --------------------------------*/

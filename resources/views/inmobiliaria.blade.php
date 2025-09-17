@@ -202,19 +202,19 @@
                 <div class="stats-grid">
                     <div class="stat-card purple">
                         <div class="stat-number">8</div>
-                        <div class="stat-label">Active properties</div>
+                        <div class="stat-label">Propiedades disponibles</div>
                     </div>
                     <div class="stat-card cyan">
                         <div class="stat-number">0</div>
-                        <div class="stat-label">Pending properties</div>
+                        <div class="stat-label">Citas</div>
                     </div>
                     <div class="stat-card red">
                         <div class="stat-number">0</div>
-                        <div class="stat-label">Expired properties</div>
+                        <div class="stat-label">Propiedades vendidas</div>
                     </div>
                     <div class="stat-card blue">
                         <div class="stat-number">12</div>
-                        <div class="stat-label">Agents</div>
+                        <div class="stat-label">Agentes vendedores</div>
                     </div>
                 </div>
                                 
@@ -597,48 +597,62 @@
                 </div>
             </div>
 
-             <!-- SECCIÓN ¿Quienes Somos? -->
-              <div id="quienes-section" class="content-section">
-                <div class="breadcrumb">
-                    <i class="fas fa-users"></i>
-                        <span>Escritorio</span>  
-                        <i class="fas fa-chevron-right"></i>
-                    <span>¿Quienes Somos?</span>
-                </div>
-                 <div class="section-header">
-                    <h1>
-                        <i class="fas fa-users"></i>
-                        Inmobiliaria MJB
-                    </h1>
-                    <p>¿Quienes Somos?</p>
-                </div>
-                <!-- Encabezado -->
+            
+          <!-- SECCIÓN ¿QUIENES SOMOS? -->
+<div id="quienes-section" class="content-section">
+    <div class="breadcrumb">
+        <i class="fas fa-users"></i>
+        <span>Escritorio</span>  
+        <i class="fas fa-chevron-right"></i>
+        <span>¿Quiénes Somos?</span>
+    </div>
+
     <div class="section-header">
         <h1>
             <i class="fas fa-users"></i>
             Inmobiliaria MJB Quito
         </h1>
-        <p>Conectamos a personas con sus futuros hogares.</p>
+        <p>Conectamos a personas con futuros hogares</p>
     </div>
 
-    <!-- Carrusel de imágenes -->
-    <div id="carouselQuienes" class="carousel slide mb-4" data-ride="carousel">
+    <!-- Carrusel de imágenes tipo slider -->
+    <div id="sliderQuienes" class="carousel slide mb-4" data-ride="carousel" data-interval="4000" data-pause="hover">
+        <!-- Indicadores -->
+        <ol class="carousel-indicators">
+           
+
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="img/inmobiliaria1.jpg" class="d-block w-100" alt="Oficinas">
+                <img src="{{ asset('img/inmo1.jpg') }}" class="d-block w-100 rounded" alt="Oficinas" style="max-height:400px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Oficinas modernas y confortables</h3>
+                    <p>Espacios diseñados para brindar comodidad a nuestros clientes.</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="img/inmobiliaria2.jpg" class="d-block w-100" alt="Agentes">
+                <img src="{{ asset('img/inmo2.jpg') }}" class="d-block w-100 rounded" alt="Agentes" style="max-height:400px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Agentes profesionales</h3>
+                    <p>Contamos con un equipo capacitado y dispuesto a ayudarte en cada paso.</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="img/inmobiliaria3.jpg" class="d-block w-100" alt="Clientes felices">
+                <img src="{{ asset('img/inmo3.jpg') }}" class="d-block w-100 rounded" alt="Clientes felices" style="max-height:400px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Clientes satisfechos</h3>
+                    <p>Nuestra prioridad es la satisfacción de quienes confían en nosotros.</p>
+                </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselQuienes" role="button" data-slide="prev">
-            <i class="fas fa-chevron-left"></i>
+
+        <!-- Controles -->
+        <a class="carousel-control-prev" href="#sliderQuienes" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
         </a>
-        <a class="carousel-control-next" href="#carouselQuienes" role="button" data-slide="next">
-            <i class="fas fa-chevron-right"></i>
+        <a class="carousel-control-next" href="#sliderQuienes" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Siguiente</span>
         </a>
     </div>
 
@@ -676,6 +690,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
             <!-- SECCIÓN AGENTES VENDEDORES(Ejemplo adicional) -->
