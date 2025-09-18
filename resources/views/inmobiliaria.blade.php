@@ -80,7 +80,7 @@
                             <span>Escritorio</span>
                         </a>
                     </li>
-                    @if(in_array($usuario->rol_id, [3]))
+                    @if(in_array($usuario->rol_id, [1,3]))
                     <li class="nav-item" id="paginas-nav">
                         <a href="#" class="nav-link" onclick="showSection('paginas', this)">
                             <i class="fas fa-file-alt"></i>
@@ -183,6 +183,7 @@
                             <i class="fas fa-chevron-right expand-icon"></i>
                         </a>
                     </li> @endif
+                    
                   
                 </ul>
             </nav>
@@ -320,6 +321,7 @@
                             </div>
                         </div>
                         <div class="page-actions">
+                            
                             <a href="{{route('propiedades.busqueda')}}"  class="btn btn-view">
                             <i class="fas fa-external-link-alt"></i>
                         Ver
@@ -359,7 +361,7 @@
                         </div>
                         <div class="page-content">
                             <h3>Detalle de Propiedad</h3>
-                            <p>Página individual para cada propiedad con galería de imágenes, descripción completa y formulario de contacto.</p>
+                            <p>Detalles importantes de cada propiedad</p>
                             <div class="page-stats">
                                 <span class="stat">
                                     <i class="fas fa-eye"></i>
@@ -396,16 +398,15 @@
                                 <span class="status active">Activa</span>
                             </div>
                         </div>
-                        <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
-                        </div>
+                     <div class="page-actions">
+                        
+                     <a href="#" class="btn btn-view" onclick="showSection('usuarios')">
+                    <i class="fas fa-external-link-alt"></i>
+                      Ver
+                     </a>
+                    </div>
+
+
                     </div>
 
                     <!-- Perfil de Agente -->
@@ -453,14 +454,10 @@
                             </div>
                         </div>
                         <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
+                            <a href="#" class="btn btn-view" onclick="showSection('quienes')">
+                                  <i class="fas fa-external-link-alt"></i>
+                                       Ver
+                               </a>
                         </div>
                     </div>
 
@@ -481,44 +478,14 @@
                             </div>
                         </div>
                         <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
+                            <a href="#" class="btn btn-view" onclick="showSection('contacto')">
+                                <i class="fas fa-external-link-alt"> </i>
+                                ver
+                                </a>
                         </div>
                     </div>
 
-                    <!-- Calculadora Hipotecaria -->
-                    <div class="page-card">
-                        <div class="page-icon calculator">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div class="page-content">
-                            <h3>Calculadora Hipotecaria</h3>
-                            <p>Herramienta interactiva para calcular pagos mensuales, intereses y simulaciones de crédito hipotecario.</p>
-                            <div class="page-stats">
-                                <span class="stat">
-                                    <i class="fas fa-eye"></i>
-                                    2,345 visitas
-                                </span>
-                                <span class="status active">Activa</span>
-                            </div>
-                        </div>
-                        <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
-                        </div>
-                    </div>
+                  
 
                     <!-- Mapa de Propiedades -->
                     <div class="page-card">
@@ -548,33 +515,7 @@
                         </div>
                     </div>
 
-                    <!-- Testimonios -->
-                    <div class="page-card">
-                        <div class="page-icon testimonials">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="page-content">
-                            <h3>Testimonios</h3>
-                            <p>Reseñas y testimonios de clientes satisfechos con calificaciones, fotos y experiencias detalladas.</p>
-                            <div class="page-stats">
-                                <span class="stat">
-                                    <i class="fas fa-eye"></i>
-                                    567 visitas
-                                </span>
-                                <span class="status active">Activa</span>
-                            </div>
-                        </div>
-                        <div class="page-actions">
-                            <button class="btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </button>
-                            <button class="btn-view">
-                                <i class="fas fa-external-link-alt"></i>
-                                Ver
-                            </button>
-                        </div>
-                    </div>
+                   
                 </div>
 
                 <!-- Botones de acción -->
@@ -1718,7 +1659,24 @@ document.addEventListener('DOMContentLoaded', function() {
                      Seccion de reportes
                 </h1>  
                 </div>  
-               </div>   
+               </div>  
+               
+          <!--SECCION CONTACTOS--> <!--Se muestra en la seccion paginas-->
+           <div id="contacto-section" class="content-section">
+               <div class="breadcrumb">
+                <i class="fas fa-home"></i>
+                 <span>Escritorio</span>
+                <i class="fas fa-chevron-right"></i>
+                   <span>Real Estate</span> 
+                </div>
+                <div class="section-header">
+                <h1>     
+                     <i class="fas fa-file-alt"></i>
+                     Seccion de contactos
+                </h1>  
+                </div>  
+               </div>           
+               
         </main>
     </div>
 

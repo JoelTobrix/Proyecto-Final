@@ -155,6 +155,17 @@ public function eliminar($id)
 
     return view('propiedades.busqueda', compact('propiedades'));
     }
+
+
+   public function detalles($id)
+   {
+    $propiedad = Propiedad::find($id);
+
+    if (!$propiedad) {
+        return redirect()->back()->with('error', 'Propiedad no encontrada');
+    }
+    return view('propiedades.detalles', compact('propiedad'));
+   } 
 }
 
 

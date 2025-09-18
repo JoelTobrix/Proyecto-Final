@@ -48,7 +48,7 @@ Route::get('/inmobiliaria', function() {
     }
 
     $usuario = session('usuario');
-    $propiedades = Propiedad::paginate(9);
+    $propiedades = Propiedad::paginate(100);
     $agentes = Agente::where('rol_id', 3)->get();
     $citas = Cita::with('propiedad')->get(); 
     $consultas = Consulta::with(['propiedad', 'agente'])->get();
@@ -187,6 +187,9 @@ Route::get('/propiedades/reservadas', [PropiedadController::class, 'reservadas']
 //Mostrar propiedades al publico
 Route::get('/propiedades/ver', [PropiedadController::class, 'ver'])->name('propiedades.ver');
 Route::get('/propiedades/busqueda', [PropiedadController::class, 'busqueda'])->name('propiedades.busqueda'); 
+Route::get('/propiedades/detalles/{id}', [PropiedadController::class, 'detalles'])->name('propiedades.detalles');
+
+
 /* -----------------------------
    Agentes
 --------------------------------*/

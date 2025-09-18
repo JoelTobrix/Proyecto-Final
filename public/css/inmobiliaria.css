@@ -1936,6 +1936,119 @@ tbody tr:hover {
     margin-right: 5px;
 }
 
+/* ============================= */
+/* Estilos profesionales sección ¿Quiénes Somos? */
+/* ============================= */
+#quienes-section {
+  background: linear-gradient(135deg, #eaf6fb, #ffffff);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+}
+
+/* Títulos principales */
+#quienes-section .section-header h1 {
+  color: #3498db;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#quienes-section .section-header p {
+  color: #5d6d7e;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+/* Carrusel */
+#quienes-section .carousel-inner img {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#quienes-section .carousel-caption {
+  background: rgba(52, 152, 219, 0.75);
+  border-radius: 8px;
+  padding: 12px 18px;
+}
+
+#quienes-section .carousel-caption h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+#quienes-section .carousel-caption p {
+  font-size: 0.9rem;
+  color: #f0f8ff;
+}
+
+/* Misión y Visión */
+#quienes-section .about-text h2 {
+  color: #2980b9;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-left: 4px solid #3498db;
+  padding-left: 10px;
+}
+
+#quienes-section .about-text p {
+  color: #34495e;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Valores */
+#quienes-section .card {
+  background: #ffffff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+#quienes-section .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+#quienes-section .card h3 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+#quienes-section .card p {
+  color: #5d6d7e;
+  font-size: 0.95rem;
+}
+
+/* Íconos personalizados en celeste */
+#quienes-section .card i {
+  color: #3498db !important;
+  background: #ecf6fc;
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+/* Breadcrumb dentro de la sección */
+#quienes-section .breadcrumb {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+#quienes-section .breadcrumb i,
+#quienes-section .breadcrumb span {
+  color: #3498db;
+}
+
 
 
 
