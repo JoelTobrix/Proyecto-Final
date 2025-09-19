@@ -61,5 +61,7 @@ class UsuarioController extends Controller
     return back()->withErrors([
         'correo' => 'Credenciales inválidas'
     ])->withInput();
-}
+   }
+
+   
 }

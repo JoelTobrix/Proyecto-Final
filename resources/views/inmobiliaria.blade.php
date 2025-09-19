@@ -1645,22 +1645,80 @@ document.addEventListener('DOMContentLoaded', function() {
         </table>
                  </div>
       </div>
-          <!--SECCION DE REPORTES-->   <!--Rol: Agente vendedor y propietario-->
-          <div id="reportes-section" class="content-section">
-            <div class="breadcrumb">
-                <i class="fas fa-home"></i>
-                 <span>Escritorio</span>
-                <i class="fas fa-chevron-right"></i>
-                   <span>Real Estate</span> 
-                </div>
-                <div class="section-header">
-                <h1>     
-                     <i class="fas fa-file-alt"></i>
-                     Seccion de reportes
-                </h1>  
-                </div>  
-               </div>  
-               
+         
+             <!--SECCION DE REPORTES-->   <!--Rol: Agente vendedor y ADMINISTRADOR-->
+            <div id="reportes-section" class="content-section">
+       <div class="breadcrumb">
+        <i class="fas fa-home"></i>
+        <span>Escritorio</span>
+        <i class="fas fa-chevron-right"></i>
+        <span>Real Estate</span> 
+    </div>
+    <div class="section-header">
+        <h1>     
+            <i class="fas fa-file-alt"></i>
+            Seccion de reportes
+        </h1>  
+    </div>  
+
+    <!-- Reportes Inteligencia de Negocios -->
+    <div class="reportes-container">
+        <h2><i class="fas fa-chart-bar"></i> Reportes Inteligencia de Negocios</h2>
+
+        <!-- Clientes más activos -->
+        <div class="card mt-3 p-3 shadow-sm">
+            <h4><i class="fas fa-users"></i> Clientes más activos</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Correo</th>
+                        <th>Total de Citas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($clientesActivos as $cliente)
+                        <tr>
+                            <td>{{ $cliente->correo }}</td>
+                            <td>{{ $cliente->total_citas }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Citas canceladas/rechazadas -->
+        <div class="card mt-3 p-3 shadow-sm">
+            <h4><i class="fas fa-calendar-times"></i> Citas canceladas / rechazadas</h4>
+            <ul>
+                @foreach($citasEstados as $estado)
+                    <li>{{ ucfirst($estado->estado) }}: {{ $estado->total }}</li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- Demanda de propiedades -->
+        <div class="card mt-3 p-3 shadow-sm">
+            <h4><i class="fas fa-home"></i> Demanda por tipo de propiedad</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($demanda as $d)
+                        <tr>
+                            <td>{{ $d->ubicacion }}</td>
+                            <td>{{ $d->total }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+          
           <!--SECCION CONTACTOS--> <!--Se muestra en la seccion paginas-->
            <div id="contacto-section" class="content-section">
                <div class="breadcrumb">

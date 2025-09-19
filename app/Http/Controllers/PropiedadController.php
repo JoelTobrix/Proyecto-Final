@@ -165,7 +165,18 @@ public function eliminar($id)
         return redirect()->back()->with('error', 'Propiedad no encontrada');
     }
     return view('propiedades.detalles', compact('propiedad'));
-   } 
+   }
+   
+   public function reporteDemanda()
+   {
+     $demanda = \DB::table('propiedades')
+        ->select('ubicacion', \DB::raw('COUNT(*) as total'))
+        ->groupBy('ubicacion')
+        ->orderByDesc('total')
+        ->get();
+
+    return $demanda;
+   }
 }
 
 

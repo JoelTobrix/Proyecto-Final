@@ -2049,6 +2049,246 @@ tbody tr:hover {
   color: #3498db;
 }
 
+/* CSS ESPECÍFICO SOLO PARA SECCIÓN REPORTES - Sin interferir con otros diseños */
+
+/* Contenedor específico de reportes */
+#reportes-section {
+    background-color: #f8fafc;
+    padding: 24px;
+    min-height: calc(100vh - 60px);
+}
+
+/* Breadcrumb específico para reportes */
+#reportes-section .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+#reportes-section .breadcrumb i.fa-home {
+    color: #3b82f6;
+}
+
+#reportes-section .breadcrumb span {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+/* Header específico de la sección reportes */
+#reportes-section .reportes-header {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 32px;
+    border-left: 4px solid #8b5cf6;
+}
+
+#reportes-section .reportes-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+#reportes-section .reportes-header h1 i.fa-chart-bar {
+    color: #8b5cf6;
+    font-size: 24px;
+}
+
+/* Título de Business Intelligence */
+#reportes-section .reportes-bi-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #e2e8f0;
+}
+
+#reportes-section .reportes-bi-title i.fa-brain {
+    color: #06b6d4;
+    font-size: 20px;
+}
+
+/* Cards específicas para reportes */
+#reportes-section .reporte-card {
+    background: white;
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+#reportes-section .reporte-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Headers de las cards con colores específicos */
+#reportes-section .reporte-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    padding: 20px;
+    color: white;
+    border: none;
+}
+
+/* Colores específicos para cada card de reporte */
+#reportes-section .reporte-card:nth-child(2) .reporte-card-header {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); /* Purple */
+}
+
+#reportes-section .reporte-card:nth-child(3) .reporte-card-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%); /* Green */
+}
+
+#reportes-section .reporte-card:nth-child(4) .reporte-card-header {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Red */
+}
+
+#reportes-section .reporte-card-header i {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Contenido de las cards */
+#reportes-section .reporte-card-body {
+    padding: 20px;
+}
+
+/* Tablas específicas para reportes */
+#reportes-section .reporte-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#reportes-section .reporte-table thead th {
+    background-color: #f8fafc;
+    border: none;
+    border-bottom: 2px solid #e2e8f0;
+    font-weight: 600;
+    color: #374151;
+    padding: 16px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#reportes-section .reporte-table tbody td {
+    border: none;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+#reportes-section .reporte-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+#reportes-section .reporte-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Filas alternadas para tablas de reportes */
+#reportes-section .reporte-table tbody tr:nth-of-type(odd) {
+    background-color: #f9fafb;
+}
+
+#reportes-section .reporte-table tbody tr:nth-of-type(odd):hover {
+    background-color: #f3f4f6;
+}
+
+/* Listas específicas para reportes */
+#reportes-section .reporte-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#reportes-section .reporte-lista li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    color: #4b5563;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#reportes-section .reporte-lista li:last-child {
+    border-bottom: none;
+}
+
+#reportes-section .reporte-lista li::before {
+    content: "•";
+    color: #10b981;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+/* Responsive específico para reportes */
+@media (max-width: 768px) {
+    #reportes-section {
+        padding: 16px;
+    }
+    
+    #reportes-section .reportes-header h1 {
+        font-size: 24px;
+    }
+    
+    #reportes-section .reportes-bi-title {
+        font-size: 20px;
+    }
+    
+    #reportes-section .reporte-table {
+        font-size: 14px;
+    }
+    
+    #reportes-section .reporte-table thead th,
+    #reportes-section .reporte-table tbody td {
+        padding: 12px 8px;
+    }
+}
+
+/* Animaciones específicas para reportes */
+@keyframes reporteFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#reportes-section .reporte-card {
+    animation: reporteFadeInUp 0.6s ease-out;
+}
+
+#reportes-section .reporte-card:nth-child(2) { animation-delay: 0.1s; }
+#reportes-section .reporte-card:nth-child(3) { animation-delay: 0.2s; }
+#reportes-section .reporte-card:nth-child(4) { animation-delay: 0.3s; }
 
 
 
