@@ -105,6 +105,29 @@ class CitaController extends Controller
     return $pdf->download('Comprobante_Cita_'.$cita->idCita.'.pdf');
 }
 
+   //Reporte clientes activos
+  public function reporteClientesActivos()
+  {
+     $clientesActivos = Cita::select('correo')
+        ->selectRaw('COUNT(*) as total_citas')
+        ->groupBy('correo')
+        ->orderByDesc('total_citas')
+        ->take(10)
+        ->get();
 
+    return $clientesActivos;
+  }
+
+  //Reporte citas
+  public function reporteCitas()
+  {
+      $citasEstados = Cita::select('estado')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('estado')
+        ->get();
+
+        return $citasEstados;
+  }
+  
 
 }

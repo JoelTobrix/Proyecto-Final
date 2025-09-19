@@ -56,8 +56,13 @@ Route::get('/inmobiliaria', function() {
     $query->where('estado', 'aceptada');
           })->with('citas')->get();
 
+    //Reportes
+     $clientesActivos = app(\App\Http\Controllers\CitaController::class)->reporteClientesActivos();
+    $citasEstados = app(\App\Http\Controllers\CitaController::class)->reporteCitas();
+    $demanda = app(\App\Http\Controllers\PropiedadController::class)->reporteDemanda();      
 
-    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas', 'reservadas'));
+
+    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas', 'reservadas', 'clientesActivos', 'citasEstados', 'demanda'));
 })->name('inmobiliaria');
 
 /* -----------------------------
