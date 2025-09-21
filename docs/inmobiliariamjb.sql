@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 17-09-2025 a las 00:00:58
+-- Tiempo de generación: 21-09-2025 a las 09:14:07
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.4.1
 
@@ -45,12 +45,15 @@ CREATE TABLE `citas` (
 --
 
 INSERT INTO `citas` (`idCita`, `nombre`, `correo`, `fecha`, `hora`, `propiedad_id`, `estado`) VALUES
-(14, 'Maria', 'mariadb12@gmail.com', '2025-09-04', '10:30:00', 8, 'aceptada'),
+(14, 'Maria', 'mariadb12@gmail.com', '2025-09-04', '10:30:00', 8, 'rechazada'),
 (17, 'Fabian', 'pepedariojoel007@gmail.com', '2025-09-17', '02:42:00', 8, 'rechazada'),
 (20, 'Maria', 'mariadb12@gmail.com', '2025-09-11', '12:43:00', 14, 'aceptada'),
-(21, 'Romel', 'dariobarrionuevo49@gmail.com', '2025-09-15', '15:30:00', 13, 'aceptada'),
-(24, 'Dario', 'dariobarrionuevo49@gmail.com', '2025-09-17', '04:13:00', 14, 'aceptada'),
-(25, 'Fabricio', 'fabi123@hotmail.com', '2025-09-18', '04:20:00', 16, 'aceptada');
+(21, 'Romel', 'dariobarrionuevo49@gmail.com', '2025-09-15', '15:30:00', 13, 'rechazada'),
+(24, 'Dario', 'dariobarrionuevo49@gmail.com', '2025-09-17', '04:13:00', 14, 'rechazada'),
+(25, 'Fabricio', 'fabi123@hotmail.com', '2025-09-18', '04:20:00', 16, 'aceptada'),
+(26, 'Maria', 'mabe1990@gmail.com', '2025-09-19', '11:20:00', 21, 'pendiente'),
+(28, 'Dario', 'dariobarrionuevo49@gmail.com', '2025-09-22', '15:04:00', 26, 'aceptada'),
+(29, 'Dario', 'dariobarrionuevo49@gmail.com', '2025-09-19', '12:35:00', 27, 'aceptada');
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,13 @@ INSERT INTO `notificaciones` (`id`, `usuario_id`, `mensaje`, `leida`, `created_a
 (64, 18, 'Tu cita para \'Suite\' ha sido RECHAZADA', 0, '2025-09-17 04:09:11'),
 (65, 18, 'Tu cita para \'Suite\' ha sido ACEPTADA', 0, '2025-09-17 04:09:18'),
 (66, 1, 'Tu cita para \'Departamento suite\' ha sido ACEPTADA', 0, '2025-09-17 04:15:39'),
-(67, 2, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-17 04:16:40');
+(67, 2, 'Tu cita para \'Propiedad la carolina\' ha sido ACEPTADA', 0, '2025-09-17 04:16:40'),
+(68, 18, 'Tu cita para \'Terreno constructora, inversion\' ha sido ACEPTADA', 0, '2025-09-18 14:16:49'),
+(69, 18, 'Tu cita para \'Terreno constructora, inversion\' ha sido ACEPTADA', 0, '2025-09-18 14:20:36'),
+(70, 18, 'Tu cita para \'Terreno productivo/uso mixto\' ha sido ACEPTADA', 0, '2025-09-18 14:35:45'),
+(71, 18, 'Tu cita para \'Departamento Quitumbe\' ha sido RECHAZADA', 0, '2025-09-19 02:05:29'),
+(72, 2, 'Tu cita para \'Propiedad la carolina\' ha sido RECHAZADA', 0, '2025-09-19 02:53:16'),
+(73, 18, 'Tu cita para \'Suite\' ha sido RECHAZADA', 0, '2025-09-19 02:53:29');
 
 -- --------------------------------------------------------
 
@@ -194,7 +203,14 @@ INSERT INTO `propiedades` (`idPropiedad`, `titulo`, `ubicacion`, `precio`, `desc
 (18, 'Terreno Calderon', 'Av. Abdon Calderon', '10000', '200 metros cuadrados', 'propiedades/E3PGgqSTl1gTIkq59U3YHV3xm8UTh3VYhpo2NwbJ.jpg', 1, 'disponible'),
 (19, 'Terreno ubicado en Cumbaya', 'Via a Cumbaya', '1500', '50 metros cuadrados', 'propiedades/4hbrXv4yNSNs8oxHQNC91OQdFjTPWEe9k7nj57cc.jpg', 1, 'disponible'),
 (20, 'Ciudad futura Quitumbe sur', 'Quitumbe sur', '62000', '537 metros cuadrados', 'propiedades/D2kRvY9DM9r9A6HnAVrWQegh1KZRUQWwFpeIiTI2.jpg', 1, 'disponible'),
-(21, 'Terreno Quitumbe norte', 'Quitumbe', '25000', '50 metros cuadrados', 'propiedades/xz9i5XwUnWWQtWSHpnjAmg90LL7Vjhkhu9wgkqWg.png', 1, 'disponible');
+(21, 'Terreno Quitumbe norte', 'Quitumbe', '25000', '50 metros cuadrados', 'propiedades/xz9i5XwUnWWQtWSHpnjAmg90LL7Vjhkhu9wgkqWg.png', 1, 'disponible'),
+(22, 'Terreno residencial  el portal', 'Conjunto habitacional residencia el regional', '1500000', '350 metros cuadrados', 'propiedades/TYJoxmLGD4BpQ4mWogoRN0EGWge57UcvoukpmV61.jpg', 1, 'disponible'),
+(23, 'Terreno en Tumbaco Collaqui', 'Tumbaco Collaqui Quito', '950000', '1000 metros cuadrados', 'propiedades/hDYNudIsPsygyXtoHdDJ8HMnQo72GDxITLW3Gy6J.jpg', 1, 'disponible'),
+(24, 'Parcela', 'Tababela Quito', '300000', '850 metros cuadrados', 'propiedades/bbxts5BxbEk3r7Lhnxsj4spkMhCJejPOuU5vVmHW.jpg', 1, 'disponible'),
+(25, 'Terreno de campo parcela en zona verde', 'Tumbaco', '1450000', '1300 metros cuadrados', 'propiedades/ECVaoilyGs6exOjY72sEuI7qCAUu9EBtktGqUGXR.jpg', 1, 'disponible'),
+(26, 'Terreno constructora, inversion', 'Tumbaco', '1450000', '8012 metros cudrados', 'propiedades/UdjoCPtbHThuA2kZYYfEFwa8xDtjrWIp0pE1k0X6.jpg', 0, 'reservada'),
+(27, 'Terreno productivo/uso mixto', 'El Quinche, La esperanza', '450000', '850 metros cuadrados\r\nDe oportunidad', 'propiedades/kZ0UUF7S8ysYXD9ZUM6Zu0IDFPkx8vLSVC6lzHVT.png', 0, 'reservada'),
+(28, 'Terreno Av. Bolivar', 'Tababela Quito', '4560000', '1500 metros cuadrados, excelente oportunidad', 'propiedades/19bsmMfy4QWCfhqnrljdTCvM21sTHznbow0MYixv.jpg', 1, 'disponible');
 
 -- --------------------------------------------------------
 
@@ -327,7 +343,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `consultas`
@@ -339,13 +355,13 @@ ALTER TABLE `consultas`
 -- AUTO_INCREMENT de la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de la tabla `propiedades`
 --
 ALTER TABLE `propiedades`
-  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas_consultas`
@@ -363,7 +379,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
