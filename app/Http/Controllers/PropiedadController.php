@@ -177,6 +177,19 @@ public function eliminar($id)
 
     return $demanda;
    }
+
+   public function reporteVisitas()
+{
+    $visitas = \DB::table('propiedades')
+        ->select('titulo', 'visitas')
+        ->orderByDesc('visitas')
+        ->limit(5) //  top 5 propiedades más vistas
+        ->get();
+
+    return $visitas;
+}
+
+
 }
 
 

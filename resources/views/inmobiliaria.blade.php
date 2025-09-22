@@ -1646,77 +1646,113 @@ document.addEventListener('DOMContentLoaded', function() {
                  </div>
       </div>
          
-             <!--SECCION DE REPORTES-->   <!--Rol: Agente vendedor y ADMINISTRADOR-->
-            <div id="reportes-section" class="content-section">
-       <div class="breadcrumb">
-        <i class="fas fa-home"></i>
-        <span>Escritorio</span>
-        <i class="fas fa-chevron-right"></i>
-        <span>Real Estate</span> 
-    </div>
-    <div class="section-header">
-        <h1>     
-            <i class="fas fa-file-alt"></i>
-            Seccion de reportes
-        </h1>  
-    </div>  
+           <!--SECCION DE REPORTES-->   <!--Rol: Agente vendedor y ADMINISTRADOR-->
+<div id="reportes-section" class="content-section">
+   <div class="breadcrumb">
+      <i class="fas fa-home"></i>
+      <span>Escritorio</span>
+      <i class="fas fa-chevron-right"></i>
+      <span>Real Estate</span> 
+   </div>
+   <div class="section-header">
+      <h1>     
+         <i class="fas fa-file-alt"></i>
+         Seccion de reportes
+      </h1>  
+   </div>  
 
-    <!-- Reportes Inteligencia de Negocios -->
-    <div class="reportes-container">
-        <h2><i class="fas fa-chart-bar"></i> Reportes Inteligencia de Negocios</h2>
+   <!-- Reportes Inteligencia de Negocios -->
+   <div class="reportes-container">
+      <h2><i class="fas fa-chart-bar"></i> Reportes Inteligencia de Negocios</h2>
 
-        <!-- Clientes más activos -->
-        <div class="card mt-3 p-3 shadow-sm">
-            <h4><i class="fas fa-users"></i> Clientes más activos</h4>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Correo</th>
-                        <th>Total de Citas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($clientesActivos as $cliente)
-                        <tr>
-                            <td>{{ $cliente->correo }}</td>
-                            <td>{{ $cliente->total_citas }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+      <!-- Clientes más activos -->
+      <div class="card mt-3 p-3 shadow-sm">
+         <h4><i class="fas fa-users"></i> Clientes más activos</h4>
+         <canvas id="clientesChart"></canvas>
+      </div>
 
-        <!-- Citas canceladas/rechazadas -->
-        <div class="card mt-3 p-3 shadow-sm">
-            <h4><i class="fas fa-calendar-times"></i> Citas canceladas / rechazadas</h4>
-            <ul>
-                @foreach($citasEstados as $estado)
-                    <li>{{ ucfirst($estado->estado) }}: {{ $estado->total }}</li>
-                @endforeach
-            </ul>
-        </div>
+      <!-- Citas canceladas/rechazadas -->
+      <div class="card mt-3 p-3 shadow-sm">
+         <h4><i class="fas fa-calendar-times"></i> Citas canceladas / rechazadas</h4>
+         <canvas id="citasChart"></canvas>
+      </div>
 
-        <!-- Demanda de propiedades -->
-        <div class="card mt-3 p-3 shadow-sm">
-            <h4><i class="fas fa-home"></i> Demanda por tipo de propiedad</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($demanda as $d)
-                        <tr>
-                            <td>{{ $d->ubicacion }}</td>
-                            <td>{{ $d->total }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+      <!-- Demanda de propiedades -->
+      <div class="card mt-3 p-3 shadow-sm">
+         <h4><i class="fas fa-home"></i> Demanda por tipo de propiedad</h4>
+         <canvas id="demandaChart"></canvas>
+      </div>
+
+      <!-- Propiedades más visitadas -->
+      <div class="card mt-3 p-3 shadow-sm">
+         <h4><i class="fas fa-chart-line"></i> Propiedades más visitadas</h4>
+         <canvas id="visitasChart"></canvas>
+      </div>
+   </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+   // Clientes más activos
+   new Chart(document.getElementById('clientesChart'), {
+       type: 'bar',
+       data: {
+           labels: @json($clientesActivos->pluck('correo')),
+           datasets: [{
+               label: 'Total de Citas',
+               data: @json($clientesActivos->pluck('total_citas')),
+               backgroundColor: 'rgba(75, 192, 192, 0.6)',
+               borderColor: 'rgba(75, 192, 192, 1)',
+               borderWidth: 1
+           }]
+       },
+       options: { responsive: true, scales: { y: { beginAtZero: true } } }
+   });
+
+   // Citas canceladas / rechazadas
+   new Chart(document.getElementById('citasChart'), {
+       type: 'doughnut',
+       data: {
+           labels: @json($citasEstados->pluck('estado')),
+           datasets: [{
+               data: @json($citasEstados->pluck('total')),
+               backgroundColor: ['#ff6384','#ffcd56','#36a2eb'],
+           }]
+       },
+       options: { responsive: true }
+   });
+
+   // Demanda de propiedades
+   new Chart(document.getElementById('demandaChart'), {
+       type: 'pie',
+       data: {
+           labels: @json($demanda->pluck('ubicacion')),
+           datasets: [{
+               data: @json($demanda->pluck('total')),
+               backgroundColor: ['#4bc0c0','#ff9f40','#9966ff','#ff6384'],
+           }]
+       },
+       options: { responsive: true }
+   });
+
+   // Propiedades más visitadas
+   new Chart(document.getElementById('visitasChart'), {
+       type: 'bar',
+       data: {
+           labels: @json($visitas->pluck('titulo')),
+           datasets: [{
+               label: 'Visitas',
+               data: @json($visitas->pluck('visitas')),
+               backgroundColor: 'rgba(54, 162, 235, 0.6)',
+               borderColor: 'rgba(54, 162, 235, 1)',
+               borderWidth: 1
+           }]
+       },
+       options: { responsive: true, scales: { y: { beginAtZero: true } } }
+   });
+</script>
+
 </div>
           
           <!--SECCION CONTACTOS--> <!--Se muestra en la seccion paginas-->

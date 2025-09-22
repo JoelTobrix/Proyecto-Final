@@ -56,13 +56,14 @@ Route::get('/inmobiliaria', function() {
     $query->where('estado', 'aceptada');
           })->with('citas')->get();
 
-    //Reportes
+    //Reportes con Buisness Intelligent
      $clientesActivos = app(\App\Http\Controllers\CitaController::class)->reporteClientesActivos();
     $citasEstados = app(\App\Http\Controllers\CitaController::class)->reporteCitas();
     $demanda = app(\App\Http\Controllers\PropiedadController::class)->reporteDemanda();      
+    $visitas = app(\App\Http\Controllers\PropiedadController::class)->reporteVisitas();
 
 
-    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas', 'reservadas', 'clientesActivos', 'citasEstados', 'demanda'));
+    return view('inmobiliaria', compact('usuario', 'propiedades', 'agentes', 'citas', 'consultas', 'reservadas', 'clientesActivos', 'citasEstados', 'demanda', 'visitas'));
 })->name('inmobiliaria');
 
 /* -----------------------------
