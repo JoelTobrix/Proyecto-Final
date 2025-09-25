@@ -151,6 +151,9 @@ Route::post('/reset-password', function (Request $request) {
 
 
 
+// Ruta para propiedades destacadas
+Route::get('/propiedades/destacar', [PropiedadController::class, 'destacar'])
+     ->name('propiedades.destacar');
 
 
 /* -----------------------------
@@ -245,6 +248,23 @@ Route::get('citas/{id}/comprobante', [CitaController::class, 'generarComprobante
 --------------------------------*/
 Route::post('/enviar-token', [RegistroController::class, 'enviarToken']);
 Route::post('/validar-token', [RegistroController::class, 'validarToken']);
+
+
+
+/* -----------------------------
+   Autenticación con PIN
+--------------------------------*/
+
+// Mostrar formulario de PIN
+Route::get('/pin', [UsuarioController::class, 'mostrarPin'])->name('usuario.pin');
+
+// Validar PIN ingresado
+Route::post('/pin', [UsuarioController::class, 'verificarPin'])->name('usuario.verificarPin');
+
+
+
+
+
 
 /*
 Conexion a la Base de Datos

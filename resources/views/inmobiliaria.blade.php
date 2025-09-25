@@ -1524,7 +1524,7 @@
                     <i class="fas fa-edit"></i>
                     Editar
                 </button>
-                <button class="btn-view">
+                <button class="btn-view" id="btn-destacar">
                     <i class="fas fa-external-link-alt"></i>
                     VER
                 </button>
@@ -1562,8 +1562,11 @@
         </div>
     </div>
 
-    <!-- Contenedor para el CRUD (invisible al inicio) -->
+    <!-- Contenedor para CRUD de registradas -->
     <div id="administrar-container" style="display:none; margin-top:20px;"></div>
+
+    <!-- Contenedor para CRUD de destacadas -->
+    <div id="destacada-container" style="display:none; margin-top:20px;"></div>
 </div>
 
 <!-- Script para mostrar tabla CRUD y botón regresar -->
@@ -1602,7 +1605,47 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error al cargar propiedades:', error));
     });
 });
+
+
+//Boton VER Propiedades destacadas
+document.addEventListener('DOMContentLoaded', function() {
+    let btnDestacar = document.getElementById('btn-destacar');
+    let cardsContainer = document.getElementById('cards-container');
+    let destacadaContainer = document.getElementById('destacada-container');
+
+    btnDestacar.addEventListener('click', function(){
+        //No cards
+        cardsContainer.style.display= 'none';
+        //View contenedor
+        destacadaContainer.style.display = 'block';
+         
+        //Cargar 
+         // Cargar tabla CRUD via fetch
+        fetch('{{ route("propiedades.destacar") }}')
+            .then(response => response.text())
+            .then(html => {
+                // Añadimos botón regresar arriba de la tabla
+                destacadaContainer.innerHTML = `
+                    <button id="btn-regresar" class="btn btn-secondary" style="margin-bottom:10px;">Regresar</button>
+                    ${html}
+                `;
+
+                // Botón regresar
+                document.getElementById('btn-regresar').addEventListener('click', function() {
+                    // Mostrar cards
+                    cardsContainer.style.display = 'flex';
+                    // Ocultar CRUD
+                    destacadaContainer.style.display = 'none';
+                    destacadaContainer.innerHTML = '';
+                });
+            })
+            .catch(error => console.error('Error al cargar propiedades:', error));
+    });
+        
+    });
+
 </script>
+
 
 
 

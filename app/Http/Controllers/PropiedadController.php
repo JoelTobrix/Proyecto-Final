@@ -105,6 +105,16 @@ public function eliminar($id)
         $propiedades = Propiedad::all();
         return view('propiedades.tabla', compact('propiedades'));
     }
+
+   public function destacar()
+{
+    $propiedades = Propiedad::where('destacada', true)->get();
+
+    // Retornar SOLO el HTML de la vista, no todo el layout
+    return response()->view('propiedades.destacar', compact('propiedades'));
+}
+
+
     public function reservadas()
 {
     // Propiedades con cita aceptada
